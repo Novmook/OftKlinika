@@ -1,1 +1,1 @@
-# OftKlinika — песочница (НА ДИПЛОМ 2024)
+# OftKlinika
