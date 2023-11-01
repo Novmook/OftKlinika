@@ -1,0 +1,233 @@
+﻿<Window x:Class="OftKlinika.frmLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        AllowsTransparency="True" Background="Transparent"
+        Height="500" Width="350.3" 
+        WindowStyle="None" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" 
+        Title="frmLogin">
+    <Window.Resources>
+        <Style x:Key="RoundButtonTemplate" TargetType="Button">
+            <Setter Property="Background" Value="SeaGreen" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="20" Background="{TemplateBinding Background}" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#region FocusVisualButton-->
+        <Style x:Key="BtnFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                    Margin="2"
+                    SnapsToDevicePixels="true"
+                    Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                    StrokeDashArray="1 2"
+                    StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+        <!--#region Default Colors-->
+        <Color x:Key="MouseOver.Background.Color">#FFF2F2F2</Color>
+        <Color x:Key="MouseOver.Border.Color">#FFA8B0C2</Color>
+        <Color x:Key="MouseOver.ForegroundHoverColor">#FF696C74</Color>
+
+        <Color x:Key="Focus.Background.Color">#FFEDEDED</Color>
+        <Color x:Key="Focus.Border.Color">#FF818DA7</Color>
+        <Color x:Key="Focus.Foreground.Color">#FF696C74</Color>
+
+        <Color x:Key="Pressed.Background.Color">#FFEDEDED</Color>
+        <Color x:Key="Pressed.Border.Color">#FF818DA7</Color>
+        <Color x:Key="Pressed.Foreground.Color">#FF696C74</Color>
+
+        <Color x:Key="Static.Background.Color">#FFFFFFFF</Color>
+        <Color x:Key="Static.Foreground.Color">#FF696C74</Color>
+        <Color x:Key="Static.Border.Color">#FFBDC3D1</Color>
+
+        <SolidColorBrush x:Key="Static.Background.Brush" Color="{StaticResource Static.Background.Color}" />
+        <SolidColorBrush x:Key="Static.Border.Brush" Color="{StaticResource Static.Border.Color}" />
+        <SolidColorBrush x:Key="Static.Foreground.Brush" Color="{StaticResource Static.Foreground.Color}" />
+
+        <SolidColorBrush x:Key="MouseOver.Background.Brush" Color="{StaticResource MouseOver.Background.Color}" />
+        <SolidColorBrush x:Key="MouseOver.Border.Brush" Color="{StaticResource MouseOver.Border.Color}" />
+        <SolidColorBrush x:Key="MouseOver.Foreground.Brush" Color="{StaticResource MouseOver.ForegroundHoverColor}" />
+
+        <SolidColorBrush x:Key="Pressed.Background.Brush" Color="{StaticResource Pressed.Background.Color}" />
+        <SolidColorBrush x:Key="Pressed.Border.Brush" Color="{StaticResource Pressed.Border.Color}" />
+        <SolidColorBrush x:Key="Pressed.Foreground.Brush" Color="{StaticResource Pressed.Foreground.Color}" />
+        <!--#endregion-->
+        <!--#endregion-->
+
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="15" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" Margin="0,0,-29,0">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="SeaGreen"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="SeaGreen"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="SeaGreen"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="SeaGreen"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="frmLogin1" SnapsToDevicePixels="True" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <Image x:Name="PictureLogin" Height="167" VerticalAlignment="Bottom" Source="Fon копия.jpg" Stretch="UniformToFill" HorizontalAlignment="Right" Width="296" Margin="0,0,0,193"/>
+        <Label Content="Пожалуйста, представьтесь" 
+               HorizontalAlignment="Left" 
+               Margin="41,140,0,0" VerticalAlignment="Top" 
+               FontFamily="Century Gothic" FontWeight="Bold" 
+               Width="220" 
+               FontSize="14" 
+               Height="27"/>
+        <Grid Background="Transparent" Margin="0,10,0,0">
+            <Border CornerRadius="20" MinWidth="220" 
+            MinHeight="30" Background="#ffdadada" 
+            Padding="15" 
+                >
+                <Button
+                Focusable="False"
+                Style="{StaticResource RoundButtonTemplate}" FontFamily="Century Gothic" FontSize="16" Foreground="White" Margin="-15,-22,-15,15" Cursor="Arrow" Click="Button_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Fon копия.jpg"/>
+                    </Button.Background>
+                </Button>
+            </Border>
+        </Grid>
+        <Grid>
+            <StackPanel>
+                <Border Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" 
+                    CornerRadius="20"
+                    Margin="0,178,0,117" Height="292">
+                    <TextBlock 
+                    Text="Пожалуйста, представьтесь" Margin="80,10,66,260" FontFamily="Century Gothic" FontSize="14"
+                    
+                    />
+                </Border>
+            </StackPanel>
+        </Grid>
+        <Button x:Name="CloseButton" Content="" 
+                HorizontalAlignment="Left" 
+                Margin="320,5,0,0" 
+                VerticalAlignment="Top" Width="27" 
+                Height="27" 
+                RenderTransformOrigin="1.4,-1.04" 
+                BorderBrush="#FFA2CAFB" Foreground="White" 
+                Click="CloseButton_Click" 
+                Style="{StaticResource RoundButtonTemplate}"
+                IsTabStop="False" Padding="0" Cursor="Hand">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/close_window_26px.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="EnterButton" Content="Войти" HorizontalAlignment="Left" Margin="115,367,0,0" Width="120"
+                Background="SeaGreen"
+                Foreground="White"
+                FontFamily="Century Gothic"
+                FontSize="15" Style="{DynamicResource RoundButtonTemplate}" Height="39" VerticalAlignment="Top" Click="EnterButton_Click" Cursor="Hand" IsTabStop="False"/>
+        <Button x:Name="RegisterButton" Content="Регистрация" HorizontalAlignment="Left" Margin="-1,470,0,0" Width="350"
+            Background="SeaGreen"
+            Foreground="White"
+            FontFamily="Century Gothic"
+            FontSize="14" Style="{DynamicResource RoundButtonTemplate}" Height="30" VerticalAlignment="Top" Click="RegisterButton_Click" Cursor="Hand" IsTabStop="False"/>
+        <Button x:Name="OuthButton" Content="" Margin="3,4,0,0"
+            Foreground="LightSkyBlue" Style="{StaticResource RoundButtonTemplate}"
+            FontFamily="Century Gothic"
+            FontSize="14"  
+                Height="27" 
+                VerticalAlignment="Top" 
+                RenderTransformOrigin="0.5,0.484" 
+                HorizontalAlignment="Left" 
+                Width="27" BorderBrush="LightSkyBlue" Click="OuthButton_Click" IsTabStop="False">
+            <Button.Background>
+                <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/RSM-Eye-Icon копия.png"/>
+            </Button.Background>
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <TextBox x:Name="txtUsername" HorizontalAlignment="Left" 
+                 Height="48" Margin="68,236,0,0" TextWrapping="Wrap" 
+                 VerticalAlignment="Top" Width="219"
+                 Cursor="IBeam" 
+                 materialDesign:HintAssist.Hint="Логин"
+                 materialDesign:HintAssist.IsFloating="True"
+                 BorderThickness="0,0,0,1" 
+                 Background="White"
+                 SelectionBrush="LightSkyBlue" 
+                 CaretBrush="LightSkyBlue" HorizontalContentAlignment="Stretch" FontSize="18" FontFamily="Calibri" RenderTransformOrigin="0.5,0.425" BorderBrush="LightSkyBlue"/>
+        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" 
+                     materialDesign:HintAssist.Hint="Пароль"
+                 materialDesign:HintAssist.IsFloating="True"
+                 Height="42" Margin="68,289,0,0"
+                 VerticalAlignment="Top" 
+                     Width="219" 
+                 Cursor="IBeam" 
+                 FontFamily="Calibri" 
+                     PasswordChar="*"
+                     BorderThickness="0,0,0,1"
+                 FontSize="18" Background="White" SelectionBrush="LightSkyBlue" CaretBrush="LightSkyBlue" Foreground="#DD000000" BorderBrush="LightSkyBlue"/>
+        <Image Source="Resources/_10_копия.png" HorizontalAlignment="Left" Height="121" Margin="115,46,0,0" VerticalAlignment="Top" Width="123">
+        </Image>
+
+    </Grid>
+</Window>

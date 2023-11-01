@@ -1,0 +1,446 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OftKlinika"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:xlck="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:Syncfusion="http://schemas.syncfusion.com/wpf" x:Class="OftKlinika.ZapisUsl"
+        mc:Ignorable="d"
+        Title="ZapisUsl" 
+    Height="409" Width="817" WindowStyle="None" 
+    ResizeMode="NoResize" SnapsToDevicePixels="True" 
+    WindowStartupLocation="CenterScreen" 
+    Loaded="Window_Loaded" 
+    AllowsTransparency="True" Background="Transparent"
+    >
+    <Window.Resources>
+        <Style x:Key="BtnFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                            Margin="2"
+                            SnapsToDevicePixels="true"
+                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                            StrokeDashArray="1 2"
+                            StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Color x:Key="Static.Background.Color">#FFFFFFFF</Color>
+        <SolidColorBrush x:Key="Static.Background.Brush" Color="{StaticResource Static.Background.Color}" />
+        <Color x:Key="Static.Foreground.Color">#FF696C74</Color>
+        <SolidColorBrush x:Key="Static.Foreground.Brush" Color="{StaticResource Static.Foreground.Color}" />
+        <Color x:Key="Static.Border.Color">#FFBDC3D1</Color>
+        <SolidColorBrush x:Key="Static.Border.Brush" Color="{StaticResource Static.Border.Color}" />
+        <Color x:Key="MouseOver.Background.Color">#FFF2F2F2</Color>
+        <Color x:Key="MouseOver.Border.Color">#FFA8B0C2</Color>
+        <Color x:Key="Pressed.Background.Color">#FFEDEDED</Color>
+        <Color x:Key="Pressed.Border.Color">#FF818DA7</Color>
+        <Style x:Key="DefaultBtn" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource BtnFocusVisual}" />
+            <Setter Property="Padding" Value="12,11,12,10" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontFamily" Value="Helvetica Arial sans-serif" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Background" Value="{DynamicResource Static.Background.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Static.Foreground.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Static.Border.Brush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="Border"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness=".9"
+                            CornerRadius="20">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="Common">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Normal" />
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="MouseOver">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Pressed">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Focused">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                To="{DynamicResource MouseOver.Background.Color}" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)"
+                                                To="{DynamicResource MouseOver.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                To="{DynamicResource Pressed.Background.Color}" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)"
+                                                To="{DynamicResource Pressed.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter
+                                x:Name="PART_Button"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".6" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local:OftKlinDataSet x:Key="oftKlinDataSet"/>
+        <CollectionViewSource x:Key="tableViewSource" Source="{Binding Table, Source={StaticResource oftKlinDataSet}}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="15" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" Margin="0,0,-29,0">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="SeaGreen"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="SeaGreen"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="SeaGreen"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="SeaGreen"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <local:OftKlinDataSet1 x:Key="oftKlinDataSet1"/>
+        <CollectionViewSource x:Key="uslugiViewSource" Source="{Binding Uslugi, Source={StaticResource oftKlinDataSet1}}"/>
+        <local:OftKlinDataSet5 x:Key="oftKlinDataSet5"/>
+        <CollectionViewSource x:Key="medicalCardViewSource" Source="{Binding MedicalCard, Source={StaticResource oftKlinDataSet5}}"/>
+        <local:OftKlinDataSet6 x:Key="oftKlinDataSet6"/>
+        <CollectionViewSource x:Key="reserveTableViewSource" Source="{Binding ReserveTable, Source={StaticResource oftKlinDataSet6}}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource uslugiViewSource}">
+        <Grid>
+            <Grid>
+                <Border Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" 
+                    CornerRadius="20" 
+                        Height="409" 
+                        RenderTransformOrigin="0.5,0.5" MouseDown="DragZapisUsl">
+                    <Label Content="ВЗАМЕСТО ЛЮБОГО ЧИСЛА СДЕЛАТЬ РАНДОМНОЕ ЧИСЛО&#xD;&#xA; И ВЫВОДИТЬ В НОВОМ ОКНЕ, ЗАПИСЫВАТЬ ЭТО ЧИСЛО В ТАБЛИЦУ" HorizontalAlignment="Left" Height="112" Margin="80,25,0,0" VerticalAlignment="Top" Width="685" HorizontalContentAlignment="Center" ScrollViewer.CanContentScroll="True" FontSize="24"/>
+                </Border>
+            </Grid>
+        </Grid>
+        <Button x:Name="CloseButton" Content="" 
+            Margin="792,0,0,384" 
+            RenderTransformOrigin="1.4,-1.04" 
+            BorderBrush="SeaGreen" Foreground="White" 
+            Click="CloseButton_Click" 
+            Style="{StaticResource DefaultBtn}"
+            IsTabStop="False" Padding="0" Cursor="Hand" Width="25" Height="25" VerticalAlignment="Bottom">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/close_window_26px_copy.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="Button1" Content="Записаться"
+            Margin="370,305,324,64"
+            FontFamily="Century Gothic"
+            FontSize="15"
+            Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="SeaGreen" Foreground="White" Click="Button1_Click"/>
+        <Grid x:Name="grid1" DataContext="{StaticResource tableViewSource}" HorizontalAlignment="Left" Margin="74,248,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Услуга" 
+                   Grid.Column="1" 
+                   FontFamily="Century Gothic"
+                   FontSize="14"
+                   HorizontalAlignment="Left" 
+                   Margin="54,-76,0,86" 
+                   Grid.Row="0" 
+                   VerticalAlignment="Center"/>
+            <Label Content="Дата" 
+                Grid.Column="1" 
+                FontFamily="Century Gothic"
+                FontSize="14"
+                HorizontalAlignment="Left" 
+                Margin="281,-70,-141,80" 
+                Grid.Row="0" 
+                VerticalAlignment="Center"/>
+            <Label x:Name="timelabel" Content="Время" 
+                Grid.Column="1" 
+                FontFamily="Century Gothic"
+                FontSize="14"
+                HorizontalAlignment="Left" 
+                Margin="279,-9,-139,19" 
+                Grid.Row="0" 
+                VerticalAlignment="Bottom"/>
+            <Label Content="ВНИМАНИЕ! Записи, сделанные на ВРЕМЯ ОБЕДА автоматически удаляются. См.ниже." 
+                Grid.Column="1" 
+                FontFamily="Century Gothic"
+                FontSize="12"
+                   FontWeight="Bold"
+                HorizontalAlignment="Left" 
+                Margin="-44,107,-302,-95" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" Width="539" RenderTransformOrigin="0.5,0.5" Foreground="#DD000000">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.005"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+        </Grid>
+        <Label Content="Специалист" 
+            FontFamily="Century Gothic"
+            FontSize="14"
+            HorizontalAlignment="Left" 
+            Margin="109,243,0,141" 
+            Grid.Row="0" 
+            VerticalAlignment="Center"/>
+
+        <xlck:TimePicker x:Name="dateTimePicker2" 
+            TextBoxBase.TextChanged="TimePicker_TextChanged"
+            HorizontalAlignment="Left" 
+            FontFamily="Calibri"
+            FontSize="15"
+            Margin="316,266,0,0" 
+            VerticalAlignment="Top" 
+            Height="25"
+            Width="131" CurrentDateTimePart="Hour24" 
+                         StartTime="8:05:0" 
+                         EndTime="19:49:0" 
+                         Kind="Local" 
+                         TimeInterval="0:10:0" 
+                         BorderThickness="0,0,0,1" 
+                         ShowButtonSpinner="False"
+                         ValueChanged="TimePickerValueChanged" 
+                         AllowTextInput="False" 
+                         IsUndoEnabled="False"
+                         MaxDropDownHeight="125" 
+                         TextAlignment="Center" 
+                         AllowSpin="False" 
+                         CultureInfo="ru-RU" 
+            />
+        <DatePicker x:Name="dateTimePicker1" 
+            HorizontalAlignment="Left" 
+            FontFamily="Calibri"
+            FontSize="15"
+            Margin="316,205,0,0"
+            VerticalAlignment="Top" 
+            Height="29" Width="131" SelectedDateFormat="Long" 
+            CalendarOpened="DataPicker_CalendarOpened" 
+                    Text="Дата" 
+                    Background="White"/>
+        <TextBox x:Name="имяTextBox" HorizontalAlignment="Left" 
+            Height="48" Margin="465,198,0,0" 
+                 TextWrapping="Wrap" 
+            VerticalAlignment="Top" Width="130"
+            Cursor="IBeam" 
+            materialDesign:HintAssist.Hint="Имя"
+            materialDesign:HintAssist.IsFloating="True"
+            BorderThickness="0,0,0,1" 
+            Background="White"
+            SelectionBrush="LightSkyBlue" 
+            CaretBrush="LightSkyBlue" HorizontalContentAlignment="Stretch" FontSize="18" FontFamily="Calibri" RenderTransformOrigin="0.5,0.425" BorderBrush="LightSkyBlue"/>
+        <TextBox x:Name="фамилияTextBox"
+            HorizontalAlignment="Left" 
+            Height="48" Margin="610,196,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" Width="170"
+            Cursor="IBeam" 
+            materialDesign:HintAssist.Hint="Фамилия"
+            materialDesign:HintAssist.IsFloating="True"
+            BorderThickness="0,0,0,1" 
+            Background="White"
+            SelectionBrush="LightSkyBlue" 
+            CaretBrush="LightSkyBlue" 
+            HorizontalContentAlignment="Stretch" 
+            FontSize="18" FontFamily="Calibri" 
+            RenderTransformOrigin="0.5,0.425" BorderBrush="LightSkyBlue"/>
+        <TextBox x:Name="idTextBox" 
+            HorizontalAlignment="Left" 
+            Height="48" Margin="340,86,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" Width="170"
+            Cursor="Arrow" 
+            materialDesign:HintAssist.Hint="Ваше любимое число"
+            materialDesign:HintAssist.IsFloating="True"
+            BorderThickness="0,0,0,1" 
+            Background="White"
+            SelectionBrush="LightSkyBlue" 
+            CaretBrush="LightSkyBlue" 
+            HorizontalContentAlignment="Stretch"
+            FontSize="18" FontFamily="Calibri" 
+            RenderTransformOrigin="0.5,0.425" 
+            BorderBrush="LightSkyBlue" />
+        <Label Content="С графиком вы можете ознакомиться здесь" 
+            FontFamily="Century Gothic"
+            FontSize="13"
+               FontWeight="Bold"
+            HorizontalAlignment="Left" 
+            Margin="32,380,0,4" 
+            Grid.Row="0" 
+            VerticalAlignment="Center"/>
+        <Button x:Name="GraphicButton" Content="Время работы" HorizontalAlignment="Left" Margin="341,380,0,0" Width="78"
+            Background="SeaGreen"
+            Foreground="White"
+            FontFamily="Century Gothic"
+            FontSize="13" Style="{DynamicResource RoundedButtonStyle}" Height="26" VerticalAlignment="Top"  Cursor="Hand" IsTabStop="False" Click="GraphicButton_Click"/>
+        <DataGrid x:Name="uslugiDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="610,14,51,277" RowDetailsVisibilityMode="VisibleWhenSelected" Visibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="услугаColumn" Binding="{Binding Услуга}" Header="Услуга" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="фамилияColumn" Binding="{Binding Фамилия}" Header="Фамилия" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="имяColumn" Binding="{Binding Имя}" Header="Имя" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="датаColumn" Binding="{Binding Дата}" Header="Дата" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="времяColumn" Binding="{Binding Время}" Header="Время" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="специалистColumn" Binding="{Binding Специалист}" Header="Специалист" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="medicalCardDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource medicalCardViewSource}}" Margin="573,14,195,347" RowDetailsVisibilityMode="VisibleWhenSelected" Visibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="idColumn1" Binding="{Binding Id}" Header="Id" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="фамилияColumn1" Binding="{Binding Фамилия}" Header="Фамилия" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="имяColumn1" Binding="{Binding Имя}" Header="Имя" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="услугаColumn1" Binding="{Binding Услуга}" Header="Услуга" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="датаПосещенияColumn" Binding="{Binding ДатаПосещения}" Header="Дата Посещения" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="специалистыColumn" Binding="{Binding Специалисты}" Header="Специалисты" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="reserveTableDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource reserveTableViewSource}}" Margin="84,53,709,347" RowDetailsVisibilityMode="VisibleWhenSelected" Visibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="idColumn2" Binding="{Binding Id}" Header="Id" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="специалистColumn1" Binding="{Binding Специалист}" Header="Специалист" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid x:Name="grid2" DataContext="{StaticResource reserveTableViewSource}" HorizontalAlignment="Left" Margin="93,291,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        </Grid>
+        <Grid x:Name="grid3" DataContext="{StaticResource reserveTableViewSource}" HorizontalAlignment="Left" Margin="132,296,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ComboBox x:Name="специалистComboBox"
+                      FontFamily="Calibri"
+                      FontSize="15"
+                      HorizontalAlignment="Left" 
+                      Height="29"
+                      Margin="-73,-21,-98,26" Grid.Row="0" 
+                      VerticalAlignment="Center" 
+                      Width="199" Background="White" BorderBrush="#FFACACAC" Grid.ColumnSpan="2" BorderThickness="1" IsReadOnly="True" IsTabStop="False" IsTextSearchEnabled="False"/>
+        </Grid>
+        <Grid x:Name="grid4" DataContext="{StaticResource tableViewSource}" HorizontalAlignment="Left" Margin="32,98,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ComboBox x:Name="услугиComboBox" 
+                      Grid.Column="1" 
+                      HorizontalAlignment="Left" 
+                      Height="31" 
+                      FontFamily="Calibri"
+                      FontSize="17"
+                      Margin="5,110,-122,-107" Grid.Row="0" VerticalAlignment="Center" Width="233" Background="White" BorderBrush="#FFACACAC" BorderThickness="1" SelectionChanged="услугиComboBoxSelectionChanged">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Grid>
+        <Label Content="Запись за прием" HorizontalAlignment="Left" 
+            Margin="335,10,0,0" 
+            VerticalAlignment="Top"
+            FontFamily="Microsoft Sans Serif" 
+            FontSize="22"/>
+    </Grid>
+</Window>

@@ -1,0 +1,239 @@
+﻿<Window x:Class="OftKlinika.BDform"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OftKlinika"
+        mc:Ignorable="d"
+        Title="BDform" Height="450" Width="800" Loaded="Window_Loaded" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" MouseLeftButtonDown="MouseLeftBtnDown">
+    <Window.Resources>
+        <local:OftKlinDataSet x:Key="oftKlinDataSet"/>
+        <CollectionViewSource x:Key="tableViewSource" Source="{Binding Table, Source={StaticResource oftKlinDataSet}}"/>
+        <Style x:Key="BtnFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                            Margin="2"
+                            SnapsToDevicePixels="true"
+                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                            StrokeDashArray="1 2"
+                            StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Color x:Key="Static.Background.Color">#FFFFFFFF</Color>
+        <SolidColorBrush x:Key="Static.Background.Brush" Color="{StaticResource Static.Background.Color}" />
+        <Color x:Key="Static.Foreground.Color">#FF696C74</Color>
+        <SolidColorBrush x:Key="Static.Foreground.Brush" Color="{StaticResource Static.Foreground.Color}" />
+        <Color x:Key="Static.Border.Color">#FFBDC3D1</Color>
+        <SolidColorBrush x:Key="Static.Border.Brush" Color="{StaticResource Static.Border.Color}" />
+        <Color x:Key="MouseOver.Background.Color">#FFF2F2F2</Color>
+        <Color x:Key="MouseOver.Border.Color">#FFA8B0C2</Color>
+        <Color x:Key="Pressed.Background.Color">#FFEDEDED</Color>
+        <Color x:Key="Pressed.Border.Color">#FF818DA7</Color>
+        <Style x:Key="DefaultBtn" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource BtnFocusVisual}" />
+            <Setter Property="Padding" Value="12,11,12,10" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontFamily" Value="Helvetica Arial sans-serif" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Background" Value="{DynamicResource Static.Background.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Static.Foreground.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Static.Border.Brush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="Border"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness=".9"
+                            CornerRadius="20">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="Common">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Normal" />
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="MouseOver">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Pressed">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Focused">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                To="{DynamicResource MouseOver.Background.Color}" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)"
+                                                To="{DynamicResource MouseOver.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                To="{DynamicResource Pressed.Background.Color}" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)"
+                                                To="{DynamicResource Pressed.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter
+                                x:Name="PART_Button"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".6" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local:OftKlinDataSet1 x:Key="oftKlinDataSet1"/>
+        <CollectionViewSource x:Key="uslugiViewSource" Source="{Binding Uslugi, Source={StaticResource oftKlinDataSet1}}"/>
+        <local:OftKlinDataSet2 x:Key="oftKlinDataSet2"/>
+        <CollectionViewSource x:Key="tbl_LoginViewSource" Source="{Binding tbl_Login, Source={StaticResource oftKlinDataSet2}}"/>
+        <local:OftKlinDataSet4 x:Key="oftKlinDataSet4"/>
+        <CollectionViewSource x:Key="personalViewSource" Source="{Binding Personal, Source={StaticResource oftKlinDataSet4}}"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="{DynamicResource MouseOver.Background.Color}"/>
+        </Grid.Background>
+        <TabControl HorizontalAlignment="Left" Height="381" VerticalAlignment="Top" Width="624">
+            <TabItem Header="Прайс">
+                <Grid Background="#FFE5E5E5" >
+                    <DataGrid x:Name="tableDataGrid" AutoGenerateColumns="False" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding ="{Binding Id}" Header="Id"/>
+                            <DataGridTextColumn Binding ="{Binding Услуги}" Header="Услуги"/>
+                            <DataGridTextColumn Binding ="{Binding Цена}" Header="Цена"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Запись">
+                <Grid Background="#FFE5E5E5" DataContext="{StaticResource uslugiViewSource}">
+                    <DataGrid x:Name="uslugiDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected" IsSynchronizedWithCurrentItem="False" IsManipulationEnabled="True" IsTextSearchCaseSensitive="True" ScrollViewer.CanContentScroll="True" ColumnWidth="SizeToCells">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="idColumn1" Binding="{Binding Id}" Header="Id" Width="SizeToHeader" MinWidth="50" SortDirection="Ascending" IsReadOnly="True"/>
+                            <DataGridTextColumn x:Name="услугаColumn" Binding="{Binding Услуга}" Header="Услуга" Width="SizeToHeader" SortDirection="Ascending"/>
+                            <DataGridTextColumn x:Name="фамилияColumn" Binding="{Binding Фамилия}" Header="Фамилия" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="имяColumn" Binding="{Binding Имя}" Header="Имя" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="датаColumn" Binding="{Binding Дата}" Header="Дата" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="времяColumn" Binding="{Binding Время}" Header="Время" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="специалистColumn" Binding="{Binding Специалист}" Header="Специалист" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Логины" Margin="-2,-2,-2,0">
+                <Grid Background="#FFE5E5E5" DataContext="{StaticResource uslugiViewSource}">
+                    <DataGrid x:Name="tbl_LoginDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource tbl_LoginViewSource}}" RowDetailsVisibilityMode="VisibleWhenSelected" IsManipulationEnabled="True" IsTextSearchCaseSensitive="True" ColumnWidth="SizeToCells">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="idColumn2" Binding="{Binding Id}" Header="Id" IsReadOnly="True" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="usernameColumn" Binding="{Binding Username}" Header="Username" Width="SizeToHeader" SortDirection="Ascending"/>
+                            <DataGridTextColumn x:Name="passwordColumn" Binding="{Binding Password}" Header="Password" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader" SortDirection="Ascending"/>
+                            <DataGridTextColumn x:Name="surnameColumn" Binding="{Binding Surname}" Header="Surname" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="accessTRColumn" Binding="{Binding AccessTR}" Header="Access TR" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Доступ" Margin="-2,-2,-2,0" IsManipulationEnabled="True" IsTabStop="False">
+                <Grid Background="#FFE5E5E5" DataContext="{StaticResource uslugiViewSource}">
+                    <DataGrid x:Name="personalDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource personalViewSource}}" RowDetailsVisibilityMode="VisibleWhenSelected" IsManipulationEnabled="True" IsTextSearchCaseSensitive="True" ColumnWidth="SizeToCells">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="idColumn3" Binding="{Binding Id}" Header="Id" IsReadOnly="True" Width="SizeToHeader"/>
+                            <DataGridTemplateColumn x:Name="whoIsPersonaColumn" Header="Who Is Persona" Width="SizeToHeader">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding WhoIsPersona}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn x:Name="personaIDColumn" Binding="{Binding PersonaID}" Header="Persona ID" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="CloseButton" Content="" 
+            Margin="775,0,0,425" 
+            RenderTransformOrigin="1.4,-1.04" 
+            BorderBrush="SeaGreen" Foreground="White" 
+            Click="CloseButton_Click" 
+            Style="{StaticResource DefaultBtn}"
+            IsTabStop="False" Padding="0" Cursor="Hand" Width="25" Height="25" VerticalAlignment="Bottom">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/close_window_26px_copy.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="ZapisUsl" Content="Записанные услуги"
+            Margin="10,400,630,10"
+            FontFamily="Century Gothic"
+            FontSize="13"
+            Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="SeaGreen" Foreground="White" Click="ZapisUsl_Click"/>
+        <Button x:Name="ZapisUsl_Copy" Content="История болезней"
+            Margin="204,400,434,10"
+            FontFamily="Century Gothic"
+            FontSize="13"
+            Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="SeaGreen" Foreground="White" Click="ZapisUsl_Copy_Click"/>
+        <Button x:Name="Excel1Tab" Content="Excel 1 таблица"
+            Margin="662,64,10,346"
+            FontFamily="Century Gothic"
+            FontSize="13"
+            Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="SeaGreen" Foreground="White" Click="Excel1Tab_Click"/>
+        <Button x:Name="Excel2Tab" Content="Excel 2 таблица"
+            Margin="662,134,6,276"
+            FontFamily="Century Gothic"
+            FontSize="13"
+            Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="SeaGreen" Foreground="White" Click="Excel2Tab_Click"/>
+        <Button x:Name="Excel3Tab" Content="Excel 3 таблица"
+            Margin="662,204,6,206"
+            FontFamily="Century Gothic"
+            FontSize="13"
+            Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="SeaGreen" Foreground="White" Click="Excel3Tab_Click"/>
+        <Button x:Name="NewSotr" Content="Новый сотрудник"
+            Margin="400,400,238,10"
+            FontFamily="Century Gothic"
+            FontSize="13"
+            Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="SeaGreen" Foreground="White" Click="NewSotr_Click" />
+
+    </Grid>
+</Window>

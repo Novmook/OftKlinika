@@ -1,0 +1,278 @@
+﻿<Window x:Class="OftKlinika.Timetable"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OftKlinika"
+        mc:Ignorable="d"
+        Title="Timetable" 
+        AllowsTransparency="True" Background="Transparent"
+        Height="250" Width="610" 
+        WindowStyle="None" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" 
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style x:Key="BtnFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                            Margin="2"
+                            SnapsToDevicePixels="true"
+                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                            StrokeDashArray="1 2"
+                            StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Color x:Key="Static.Background.Color">#FFFFFFFF</Color>
+        <SolidColorBrush x:Key="Static.Background.Brush" Color="{StaticResource Static.Background.Color}" />
+        <Color x:Key="Static.Foreground.Color">#FF696C74</Color>
+        <SolidColorBrush x:Key="Static.Foreground.Brush" Color="{StaticResource Static.Foreground.Color}" />
+        <Color x:Key="Static.Border.Color">#FFBDC3D1</Color>
+        <SolidColorBrush x:Key="Static.Border.Brush" Color="{StaticResource Static.Border.Color}" />
+        <Color x:Key="MouseOver.Background.Color">#FFF2F2F2</Color>
+        <Color x:Key="MouseOver.Border.Color">#FFA8B0C2</Color>
+        <Color x:Key="Pressed.Background.Color">#FFEDEDED</Color>
+        <Color x:Key="Pressed.Border.Color">#FF818DA7</Color>
+        <Style x:Key="DefaultBtn" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource BtnFocusVisual}" />
+            <Setter Property="Padding" Value="12,11,12,10" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontFamily" Value="Helvetica Arial sans-serif" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Background" Value="{DynamicResource Static.Background.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Static.Foreground.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Static.Border.Brush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="Border"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness=".9"
+                            CornerRadius="20">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="Common">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Normal" />
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="MouseOver">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Pressed">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Focused">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                To="{DynamicResource MouseOver.Background.Color}" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)"
+                                                To="{DynamicResource MouseOver.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                To="{DynamicResource Pressed.Background.Color}" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)"
+                                                To="{DynamicResource Pressed.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter
+                                x:Name="PART_Button"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".6" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local:OftKlinDataSet3 x:Key="oftKlinDataSet3"/>
+        <CollectionViewSource x:Key="timetableViewSource" Source="{Binding Timetable, Source={StaticResource oftKlinDataSet3}}"/>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <Border Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" 
+                    CornerRadius="20"
+                    Height="251"/>
+        </StackPanel>
+        <Label Content="Время работы" HorizontalAlignment="Left" 
+            Margin="236,2,0,0" 
+            VerticalAlignment="Top"
+            FontFamily="Microsoft Sans Serif" 
+            FontSize="20" RenderTransformOrigin="0.486,0.457"/>
+        <Button x:Name="CloseButton" Content="" 
+            Margin="585,0,0,225" 
+            RenderTransformOrigin="1.4,-1.04" 
+            BorderBrush="SeaGreen" Foreground="White" 
+            Click="CloseButton_Click" 
+            Style="{StaticResource DefaultBtn}"
+            IsTabStop="False" Padding="0" Cursor="Hand" Width="25" Height="25" VerticalAlignment="Bottom">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/close_window_26px_copy.png"/>
+            </Button.Background>
+        </Button>
+        <Label Content="Понедельник:" HorizontalAlignment="Left" 
+            Margin="26,55,0,0" 
+            VerticalAlignment="Top"
+            FontFamily="Century Gothic" 
+            FontSize="16" 
+               FontWeight="Bold"
+               RenderTransformOrigin="0.486,0.457"/>
+        <Label Content="Вторник:" HorizontalAlignment="Left" 
+            Margin="47,85,0,0" 
+            VerticalAlignment="Top"
+            FontFamily="Century Gothic" 
+            FontSize="16" 
+            FontWeight="Bold"
+            RenderTransformOrigin="0.486,0.457"/>
+        <Label Content="Среда:" HorizontalAlignment="Left" 
+            Margin="53,115,0,0" 
+            VerticalAlignment="Top"
+            FontFamily="Century Gothic" 
+            FontSize="16" 
+            FontWeight="Bold"
+            RenderTransformOrigin="0.486,0.457"/>
+        <Label Content="Четверг:" HorizontalAlignment="Left" 
+            Margin="49,145,0,0" 
+            VerticalAlignment="Top"
+            FontFamily="Century Gothic" 
+            FontSize="16" 
+            FontWeight="Bold"
+            RenderTransformOrigin="0.486,0.457"/>
+        <Label Content="Пятница:" HorizontalAlignment="Left" 
+            Margin="47,175,0,0" 
+            VerticalAlignment="Top"
+            FontFamily="Century Gothic" 
+            FontSize="16" 
+            FontWeight="Bold"
+            RenderTransformOrigin="0.486,0.457"/>
+        <Label Content="Суббота-Воскресенье:" HorizontalAlignment="Left" 
+            Margin="374,142,0,0" 
+            VerticalAlignment="Top"
+            FontFamily="Century Gothic" 
+            FontSize="16" 
+            FontWeight="Bold"
+            RenderTransformOrigin="0.486,0.457"/>
+        <Label Content="Обед:" HorizontalAlignment="Left" 
+            Margin="389,97,0,0" 
+            VerticalAlignment="Top"
+            FontFamily="Century Gothic" 
+            FontSize="16" 
+            FontWeight="Bold"
+            RenderTransformOrigin="0.486,0.457"/>
+        <Grid x:Name="grid1" DataContext="{StaticResource timetableViewSource}" HorizontalAlignment="Left" Margin="129,13,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        </Grid>
+        <Label x:Name="понедельникLabel" 
+               Content="{Binding Понедельник}" 
+               FontFamily="Century Gothic"
+               FontSize="16"
+               HorizontalAlignment="Left"
+               Margin="150,55,0,170" 
+               Grid.Row="0" 
+               VerticalAlignment="Center" 
+               Height="25" Width="127"/>
+        <Label x:Name="ВторникLabel"
+            Content="{Binding Вторник}" 
+            FontFamily="Century Gothic"
+            FontSize="16"
+            HorizontalAlignment="Left"
+            Margin="150,85,0,140" 
+            Grid.Row="0" 
+            VerticalAlignment="Center" 
+            Height="25" Width="127"/>
+        <Label x:Name="СредаLabel"
+            Content="{Binding Среда}" 
+            FontFamily="Century Gothic"
+            FontSize="16"
+            HorizontalAlignment="Left"
+            Margin="150,115,0,110" 
+            Grid.Row="0" 
+            VerticalAlignment="Center" 
+            Height="25" Width="127"/>
+        <Label x:Name="ЧетвергLabel"
+            Content="{Binding Четверг}" 
+            FontFamily="Century Gothic"
+            FontSize="16"
+            HorizontalAlignment="Left"
+            Margin="150,145,0,80" 
+            Grid.Row="0" 
+            VerticalAlignment="Center" 
+            Height="25" Width="127"/>
+        <Label x:Name="ПятницаLabel"
+            Content="{Binding Пятница}" 
+            FontFamily="Century Gothic"
+            FontSize="16"
+            HorizontalAlignment="Left"
+            Margin="150,175,0,50" 
+            Grid.Row="0" 
+            VerticalAlignment="Center" 
+            Height="25" Width="127"/>
+        <Label x:Name="СубботаВоскресеньеLabel"
+            Content="{Binding Суббота-Воскресенье}" 
+            FontFamily="Century Gothic"
+            FontSize="16"
+            HorizontalAlignment="Left"
+            Margin="390,170,0,55" 
+            Grid.Row="0" 
+            VerticalAlignment="Center" 
+            Height="25" Width="183"/>
+        <Label x:Name="ОбедаLabel"
+            Content="{Binding Обед}" 
+            FontFamily="Century Gothic"
+            FontSize="16"
+            HorizontalAlignment="Left"
+            Margin="445,97,0,128" 
+            Grid.Row="0" 
+            VerticalAlignment="Center" 
+            Height="25" Width="155"/>
+
+    </Grid>
+</Window>

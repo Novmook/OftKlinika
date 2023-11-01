@@ -1,0 +1,189 @@
+﻿<Window x:Class="OftKlinika.ReportDay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OftKlinika"
+        mc:Ignorable="d"
+        Title="ReportDay" Height="480" Width="780" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style x:Key="BtnFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                            Margin="2"
+                            SnapsToDevicePixels="true"
+                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                            StrokeDashArray="1 2"
+                            StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Color x:Key="Static.Background.Color">#FFFFFFFF</Color>
+        <SolidColorBrush x:Key="Static.Background.Brush" Color="{StaticResource Static.Background.Color}" />
+        <Color x:Key="Static.Foreground.Color">#FF696C74</Color>
+        <SolidColorBrush x:Key="Static.Foreground.Brush" Color="{StaticResource Static.Foreground.Color}" />
+        <Color x:Key="Static.Border.Color">#FFBDC3D1</Color>
+        <SolidColorBrush x:Key="Static.Border.Brush" Color="{StaticResource Static.Border.Color}" />
+        <Color x:Key="MouseOver.Background.Color">#FFF2F2F2</Color>
+        <Color x:Key="MouseOver.Border.Color">#FFA8B0C2</Color>
+        <Color x:Key="Pressed.Background.Color">#FFEDEDED</Color>
+        <Color x:Key="Pressed.Border.Color">#FF818DA7</Color>
+        <Style x:Key="DefaultBtn" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource BtnFocusVisual}" />
+            <Setter Property="Padding" Value="12,11,12,10" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontFamily" Value="Helvetica Arial sans-serif" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Background" Value="{DynamicResource Static.Background.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Static.Foreground.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Static.Border.Brush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="Border"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness=".9"
+                            CornerRadius="20">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="Common">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Normal" />
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="MouseOver">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Pressed">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Focused">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                To="{DynamicResource MouseOver.Background.Color}" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)"
+                                                To="{DynamicResource MouseOver.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                To="{DynamicResource Pressed.Background.Color}" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)"
+                                                To="{DynamicResource Pressed.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter
+                                x:Name="PART_Button"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".6" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local:OftKlinDataSet8 x:Key="oftKlinDataSet8"/>
+        <CollectionViewSource x:Key="reportingViewSource" Source="{Binding Reporting, Source={StaticResource oftKlinDataSet8}}"/>
+    </Window.Resources>
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" DataContext="{StaticResource reportingViewSource}">
+        <Label Content="Отчетность сотрудников за день" HorizontalAlignment="Left" 
+            Margin="254,6,0,0" 
+            VerticalAlignment="Top"
+            FontFamily="Microsoft Sans Serif" 
+            FontSize="20" 
+               RenderTransformOrigin="0.486,0.457"/>
+        <Button x:Name="CloseButton" Content="" 
+            Margin="755,0,0,455" 
+            RenderTransformOrigin="1.4,-1.04" 
+            BorderBrush="SeaGreen" Foreground="White" 
+            Click="CloseButton_Click" 
+            Style="{StaticResource DefaultBtn}"
+            IsTabStop="False" Padding="0" Cursor="Hand" Width="25" Height="25" VerticalAlignment="Bottom">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/close_window_26px_copy.png"/>
+            </Button.Background>
+        </Button>
+        <DataGrid x:Name="reportingDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,46,126,0" RowDetailsVisibilityMode="VisibleWhenSelected" ColumnWidth="SizeToCells" SnapsToDevicePixels="True" IsManipulationEnabled="True" IsTextSearchCaseSensitive="True">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn x:Name="patientsColumn" Header="Patients" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Patients}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="doctorColumn" Header="Doctor" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Doctor}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="uslugaColumn" Header="Usluga" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Usluga}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="dataColumn" Header="Data" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Data}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="Excel1Tab" Content="Excel таблица"
+            Margin="659,120,-2,320"
+            FontFamily="Century Gothic"
+            FontSize="13"
+            Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="SeaGreen" Foreground="White" Click="Excel1Tab_Click"/>
+        <Button x:Name="Statistic" Content="Статистика"
+            Margin="659,62,-2,378"
+            FontFamily="Century Gothic"
+            FontSize="13"
+            Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="SeaGreen" Foreground="White" Click="Statistic_Click"/>
+
+    </Grid>
+</Window>

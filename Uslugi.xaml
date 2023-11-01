@@ -1,0 +1,1062 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OftKlinika"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        x:Class="OftKlinika.MainWindow"
+        mc:Ignorable="d"
+        Title="Uslugi" Height="596" Width="1038" WindowStartupLocation="CenterScreen" WindowStyle="None" Loaded="Uslugi_Loaded" Background="White" MaxWidth="1038" MaxHeight="596" ScrollViewer.VerticalScrollBarVisibility="Disabled" Visibility="Visible" ResizeMode="NoResize" MouseLeftButtonDown="MouseLeftBtnDown">
+    <Window.Resources>
+        <Style x:Key="RoundButtonTemplate" TargetType="Button">
+            <Setter Property="Background" Value="SeaGreen" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="30" Background="{TemplateBinding Background}" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+
+        <!--#endregion-->
+        <!--#region FocusVisualButton-->
+        <Style x:Key="BtnFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                    Margin="2"
+                    SnapsToDevicePixels="true"
+                    Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                    StrokeDashArray="1 2"
+                    StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#region Default Colors-->
+        <Color x:Key="MouseOver.Background.Color">#FFF2F2F2</Color>
+        <Color x:Key="MouseOver.Border.Color">#FFA8B0C2</Color>
+        <Color x:Key="MouseOver.ForegroundHoverColor">#FF696C74</Color>
+
+        <Color x:Key="Focus.Background.Color">#FFEDEDED</Color>
+        <Color x:Key="Focus.Border.Color">#FF818DA7</Color>
+        <Color x:Key="Focus.Foreground.Color">#FF696C74</Color>
+
+        <Color x:Key="Pressed.Background.Color">#FFEDEDED</Color>
+        <Color x:Key="Pressed.Border.Color">#FF818DA7</Color>
+        <Color x:Key="Pressed.Foreground.Color">#FF696C74</Color>
+
+        <Color x:Key="Static.Background.Color">#FFFFFFFF</Color>
+        <Color x:Key="Static.Foreground.Color">#FF696C74</Color>
+        <Color x:Key="Static.Border.Color">#FFBDC3D1</Color>
+
+        <SolidColorBrush x:Key="Static.Background.Brush" Color="{StaticResource Static.Background.Color}" />
+        <SolidColorBrush x:Key="Static.Border.Brush" Color="{StaticResource Static.Border.Color}" />
+        <SolidColorBrush x:Key="Static.Foreground.Brush" Color="{StaticResource Static.Foreground.Color}" />
+
+        <SolidColorBrush x:Key="MouseOver.Background.Brush" Color="{StaticResource MouseOver.Background.Color}" />
+        <SolidColorBrush x:Key="MouseOver.Border.Brush" Color="{StaticResource MouseOver.Border.Color}" />
+        <SolidColorBrush x:Key="MouseOver.Foreground.Brush" Color="{StaticResource MouseOver.ForegroundHoverColor}" />
+
+        <SolidColorBrush x:Key="Pressed.Background.Brush" Color="{StaticResource Pressed.Background.Color}" />
+        <SolidColorBrush x:Key="Pressed.Border.Brush" Color="{StaticResource Pressed.Border.Color}" />
+        <SolidColorBrush x:Key="Pressed.Foreground.Brush" Color="{StaticResource Pressed.Foreground.Color}" />
+        <!--#region DefaultBtn-->
+
+        <Style x:Key="DefaultBtn" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource BtnFocusVisual}" />
+            <Setter Property="Padding" Value="12,11,12,10" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontFamily" Value="Helvetica Arial sans-serif" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Background" Value="{DynamicResource Static.Background.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Static.Foreground.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Static.Border.Brush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                    x:Name="Border"
+                    Padding="{TemplateBinding Padding}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness=".9"
+                    CornerRadius="20">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="Common">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Normal" />
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="MouseOver">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Pressed">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Focused">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                        To="{DynamicResource MouseOver.Background.Color}" />
+                                            <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)"
+                                        To="{DynamicResource MouseOver.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                        To="{DynamicResource Pressed.Background.Color}" />
+                                            <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)"
+                                        To="{DynamicResource Pressed.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter
+                        x:Name="PART_Button"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".6" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <local:OftKlinDataSet2 x:Key="oftKlinDataSet2"/>
+        <CollectionViewSource x:Key="tbl_LoginViewSource" Source="{Binding tbl_Login, Source={StaticResource oftKlinDataSet2}}"/>
+        <Style x:Key="RoundedButtonStyle2" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="35" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" Margin="0,0,-29,0">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="LightSkyBlue"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="LightSkyBlue"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="LightSkyBlue"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="LightSkyBlue"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <local:OftKlinDataSet x:Key="oftKlinDataSet"/>
+        <CollectionViewSource x:Key="tableViewSource" Source="{Binding Table, Source={StaticResource oftKlinDataSet}}"/>
+        <local:OftKlinDataSet4 x:Key="oftKlinDataSet4"/>
+        <CollectionViewSource x:Key="personalViewSource" Source="{Binding Personal, Source={StaticResource oftKlinDataSet4}}"/>
+        <local:OftKlinDataSet7 x:Key="oftKlinDataSet7"/>
+        <CollectionViewSource x:Key="doctorViewSource" Source="{Binding Doctor, Source={StaticResource oftKlinDataSet7}}"/>
+        <CollectionViewSource x:Key="glavDoctorViewSource" Source="{Binding GlavDoctor, Source={StaticResource oftKlinDataSet7}}"/>
+    </Window.Resources>
+    <!--#endregion-->
+    <Grid RenderTransformOrigin="0.512,0.527" 
+          Height="596" 
+          VerticalAlignment="Top" 
+          HorizontalAlignment="Left"
+          Width="1038" SnapsToDevicePixels="True" MaxWidth="1038" MaxHeight="596" Loaded="Uslugi_Load" DataContext="{StaticResource tableViewSource}">
+        <Button x:Name="AdminButton" Content="Админ"
+            Margin="855,1,95,557"
+            FontFamily="Calibri"
+            FontSize="15"
+            Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="LightSkyBlue" Foreground="White" IsTabStop="False" Click="AdminButton_Click"/>
+        <Button x:Name="CovidButton" 
+                Content="Статистика COVID-19 на сегодня"
+            Margin="185,140,570,413"
+            FontFamily="Century Gothic"
+            FontSize="14"
+            Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="SeaGreen" Foreground="White" IsTabStop="False" Click="CovidButton_Click"/>
+        <Grid x:Name="panel6" HorizontalAlignment="Left" Height="308" Margin="244,258,0,0" VerticalAlignment="Top" Width="206" Background="White">
+            <Image Source="Resources/1.-kabinet-oftalmologa.jpg" Height="156" VerticalAlignment="Top"/>
+            <TextBlock x:Name="plabel1" TextAlignment="Center"
+                 FontFamily="Century Gothic"
+                 FontSize="13" 
+                       Margin="0,210,0,30"><Run Text="Офтальмологическая"/><LineBreak/><Run Text="консультация"/><Run Text=""/><LineBreak/><Run Text="с врачом "/></TextBlock>
+            <Grid x:Name="grid2" 
+                  DataContext="{StaticResource tableViewSource}" HorizontalAlignment="Left" 
+                  Margin="30,181,0,0" 
+                  VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="услугиLabel1" 
+                       Content="{Binding Услуги}" 
+                       FontFamily="Century Gothic"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Grid.Column="1" 
+                       HorizontalAlignment="Left" 
+                       Margin="12,-20,-125,13"
+                       Grid.Row="0" 
+                       VerticalAlignment="Center" 
+                       Height="39" Width="129"/>
+            </Grid>
+            <Grid x:Name="grid3" DataContext="{StaticResource tableViewSource}" HorizontalAlignment="Left" Margin="26,283,0,0" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="ценаLabel1"
+                       Content="{Binding Цена}" 
+                       FontFamily="Century Gothic"
+                       FontSize="15"
+                       FontWeight="Bold"
+                       Grid.Column="1" 
+                       HorizontalAlignment="Center" 
+                       Margin="109,-3,-140,-6" 
+                       Grid.Row="0"
+                       VerticalAlignment="Center" 
+                       Height="25" 
+                       Width="45"/>
+            </Grid>
+            <Label x:Name="ценаLabel3_Copy1" 
+                Content="руб" 
+                FontFamily="Century Gothic"
+                FontSize="14"
+                   FontWeight="Bold"
+                Grid.Column="0"
+                HorizontalAlignment="Left" 
+                Margin="169,283,0,0" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Width="36" Height="25"/>
+        </Grid>
+        <Button Content="" HorizontalAlignment="Left" Margin="177,-1,0,0" Width="225"
+            Background="LightSkyBlue"
+            Foreground="White"
+            FontFamily="Century Gothic"
+            FontSize="15" Style="{StaticResource RoundButtonTemplate}" Height="60" VerticalAlignment="Top" Cursor="None" IsTabStop="False"/>
+        <DockPanel HorizontalAlignment="Left" 
+                   Height="596" 
+                   LastChildFill="False" 
+                   VerticalAlignment="Top" 
+                   Width="209" 
+                   Background="#FF292728">
+            <Grid Height="596" 
+                  VerticalAlignment="Top" 
+                  Width="209">
+                <Image Source="Resources/windows_client_25px.png" 
+                       Stretch="Uniform" 
+                       StretchDirection="Both" 
+                       Margin="16,100,153,462">
+                    <Image.OpacityMask>
+                        <ImageBrush ImageSource="Resources/windows_client_32px.png" Stretch="UniformToFill"/>
+                    </Image.OpacityMask>
+                </Image>
+                <Button x:Name="button1" 
+                        Content="   Главная" 
+                    Height="54" 
+                    FontFamily="Century Gothic"
+                    FontSize="15"
+                    VerticalAlignment="Top"
+                    Margin="10,92,0,0" 
+                        Background="#FF292728" 
+                        Foreground="White" 
+                        Padding="0" 
+                        BorderBrush="#FF292728"
+                        Style="{StaticResource ResourceKey=DefaultBtn}" IsTabStop="False" Click="button1_Click"/>
+                <Image Source="Resources/windows_client_25px.png" 
+                    Stretch="Uniform" 
+                    StretchDirection="Both" 
+                    Margin="16,100,153,462" Width="30">
+                    <Image.OpacityMask>
+                        <ImageBrush ImageSource="Resources/windows_client_32px.png" Stretch="UniformToFill"/>
+                    </Image.OpacityMask>
+                </Image>
+                <Button x:Name="button7" Margin="10,146,0,386" 
+                        Background="#FF292728" 
+                        Foreground="White" 
+                        BorderBrush="#FF292728"
+                         Style="{StaticResource DefaultBtn}" Click="button7_Click" IsTabStop="False">
+                    <TextBlock TextAlignment="Center"
+                 FontFamily="Century Gothic"
+                 FontSize="15" Height="35"><Run Text="⠀⠀⠀Записаться на"/><LineBreak/><Run Text="⠀⠀⠀⠀прием"/></TextBlock>
+                </Button>
+                <Image Source="Resources/stethoscope_50px.png" 
+                Stretch="Uniform" 
+                StretchDirection="Both" 
+                Margin="16,164,153,401" Width="30"/>
+                <Button x:Name="button3" Content="⠀⠀⠀ Время работы" 
+                        Margin="10,212,0,332"
+                        FontFamily="Century Gothic"
+                        FontSize="15"
+                         Style="{StaticResource DefaultBtn}"
+                    Background="#FF292728" 
+                    Foreground="White" 
+                    BorderBrush="#FF292728" IsTabStop="False" HorizontalAlignment="Left" Width="199" Click="button3_Click"/>
+                <Image Source="Resources/info_50px.png" 
+                    Stretch="Uniform" 
+                    StretchDirection="Both" 
+                    Margin="16,224,153,341" Width="30"/>
+                <Button x:Name="button6" Margin="10,266,0,270" 
+                    Background="#FF292728" 
+                    Foreground="White" 
+                    BorderBrush="#FF292728"
+                         Style="{StaticResource DefaultBtn}" IsTabStop="False" Click="button6_Click">
+                    <TextBlock TextAlignment="Center"
+                        FontFamily="Century Gothic"
+                        FontSize="15"><Run Text="⠀Кабинеты и"/><LineBreak/><Run Text="⠀врачи"/></TextBlock>
+                </Button>
+                <Image Source="Resources/resume_50px.png" 
+                    Stretch="Uniform" 
+                    StretchDirection="Both" 
+                    Margin="16,279,153,286" Width="30"/>
+                <Button x:Name="button5" Content="⠀О клинике" 
+                    Margin="10,327,0,217"
+                    FontFamily="Century Gothic"
+                    FontSize="15"
+                    Background="#FF292728" 
+                    Foreground="White" 
+                        Style="{StaticResource DefaultBtn}"
+                    BorderBrush="#FF292728" IsTabStop="False" HorizontalAlignment="Left" Width="199" Click="button5_Click"/>
+                <Image Source="Resources/user_account_50px.png" 
+                    Stretch="Uniform" 
+                    StretchDirection="Both" 
+                    Margin="16,336,153,229" Width="30"/>
+                <Button x:Name="button2" Margin="10,381,0,156" 
+                    Background="#FF292728" 
+                    Foreground="White" 
+                        Style="{StaticResource DefaultBtn}"
+                    BorderBrush="#FF292728" IsTabStop="False" Click="button2_Click">
+                    <TextBlock TextAlignment="Center"
+                        FontFamily="Century Gothic"
+                        FontSize="15"><Run Text="⠀⠀⠀   Оформление"/><LineBreak/><Run Text="⠀⠀⠀формы"/></TextBlock>
+                </Button>
+                <Image x:Name="image1" Source="Resources/edit_property_50px.png" 
+                    Stretch="Uniform" 
+                    StretchDirection="Both" 
+                    Margin="21,394,158,171" Width="30"/>
+                <Button x:Name="button10" Content="⠀⠀⠀⠀Отчет за день" 
+                    Margin="10,442,0,102"
+                    FontFamily="Century Gothic"
+                    FontSize="15"
+                    Background="#FF292728" 
+                    Foreground="White" 
+                        Style="{StaticResource DefaultBtn}"
+                    BorderBrush="#FF292728" Click="button10_Click"/>
+                <Image x:Name="image3" Source="Resources/edit_property_50px.png" 
+                    Stretch="Uniform" 
+                    StretchDirection="Both" 
+                    Margin="21,453,158,112" Width="30"/>
+                <Button x:Name="button9" Content="⠀⠀⠀ Отчет за день" 
+                    Margin="12,443,-2,101"
+                    FontFamily="Century Gothic"
+                    FontSize="15"
+                    Background="#FF292728" 
+                    Foreground="White" 
+                    Style="{StaticResource DefaultBtn}"
+                    BorderBrush="#FF292728" IsTabStop="False" Click="button9_Click"/>
+                <Image x:Name="image2" Source="Resources/edit_property_50px.png" 
+                    Stretch="Uniform" 
+                    StretchDirection="Both" 
+                    Margin="21,453,158,112" Width="30"/>
+            </Grid>
+        </DockPanel>
+        <Label Content="Eye Clinic" 
+               HorizontalAlignment="Left" 
+               Margin="59,10,0,0" 
+               VerticalAlignment="Top"
+               FontFamily="Century Gothic"
+               FontSize="16"
+               Width="90" Foreground="White"/>
+        <Button x:Name="CloseButton" Content="" 
+                Margin="1000,7,8,0" 
+                VerticalAlignment="Top" 
+                Height="30" 
+                RenderTransformOrigin="1.4,-1.04" 
+                BorderBrush="#FFA2CAFB" Foreground="White"
+                Style="{StaticResource DefaultBtn}"
+                IsTabStop="False" Padding="0" 
+                Cursor="Hand" 
+                Click="CloseButton_Click" Width="30">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/sign_out_50px.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="NextButtonN" Content="" 
+            Margin="958,176,40,0" 
+            VerticalAlignment="Top" 
+            Height="35" 
+            RenderTransformOrigin="1.4,-1.04" 
+            BorderBrush="SeaGreen" Foreground="White" 
+            Style="{DynamicResource DefaultBtn}"
+            IsTabStop="False" Padding="0" 
+                Cursor="Hand" Width="35" 
+                Click="NextButton">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/left_50px GREEN.png"/>
+            </Button.Background>
+        </Button>
+        <Image Source="Resources/10 copy.png" 
+               HorizontalAlignment="Left" 
+               Height="50" 
+               Margin="215,3,0,0" VerticalAlignment="Top" 
+               Width="50" Cursor="Arrow"/>
+        <Label Content="Ophthalmologic" 
+               HorizontalAlignment="Left" 
+               Margin="276,6,0,0" 
+               FontFamily="Century Gothic"
+               FontSize="14" FontStyle="Normal"
+               VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Clinic" 
+               HorizontalAlignment="Left" 
+               Margin="294,27,0,0" 
+               FontFamily="Century Gothic"
+               FontSize="14" FontStyle="Normal"
+               VerticalAlignment="Top" Foreground="White" Height="32" Width="74"/>
+        <Label x:Name="welcomeLabel" Content="Добро пожаловать" 
+            Margin="554,60,233,506" 
+            FontFamily="Calibri" FontWeight="Bold" 
+            FontSize="18"/>
+        <Label x:Name="label8" Content="Пожалуйста, ознакомьтесь с нашими услугами" 
+            HorizontalAlignment="Left" 
+            Margin="465,103,0,0" VerticalAlignment="Top" 
+            FontFamily="Calibri" FontWeight="Bold" 
+            Width="340" 
+            FontSize="16" 
+            Height="30"/>
+        <Grid x:Name="grid1" DataContext="{StaticResource tbl_LoginViewSource}" HorizontalAlignment="Left" Margin="614,112,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        </Grid>
+        <Button x:Name="backuslugibutton" Content="Главная"
+                Margin="739,168,175,385"
+                FontFamily="Century Gothic"
+                FontSize="16"
+                Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="SeaGreen" Foreground="White" Click="BackUslugi" IsTabStop="False"/>
+        <Button x:Name="ButtonMed" Content="Для врача"
+            Margin="855,0,83,555"
+            FontFamily="Calibri"
+            FontSize="15"
+            Style="{DynamicResource DefaultBtn}" BorderBrush="White" Background="SeaGreen" Foreground="White" IsTabStop="False" Click="ButtonMed_Click"/>
+        <Button x:Name="NextButton1" 
+            Margin="958,176,40,0" 
+            VerticalAlignment="Top" 
+            Height="35" 
+            RenderTransformOrigin="1.4,-1.04" 
+            BorderBrush="SeaGreen" Foreground="White" 
+            Style="{DynamicResource DefaultBtn}"
+            IsTabStop="False" Padding="0" Cursor="Hand" Width="35" Click="NextButtonN2">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/left_50px GREEN.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="NextButton2" Content="" 
+            Margin="960,176,42,0" 
+            VerticalAlignment="Top" 
+            Height="35" 
+            RenderTransformOrigin="1.4,-1.04" 
+            BorderBrush="SeaGreen" Foreground="White" 
+            Style="{DynamicResource DefaultBtn}"
+            IsTabStop="False" Padding="0" Cursor="Hand" Width="35" Click="NextButtonN3">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/left_50px GREEN.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="BackButton" Content="" 
+            Margin="842,175,161,0" 
+            VerticalAlignment="Top" 
+            Height="35" 
+            RenderTransformOrigin="1.4,-1.04" 
+            BorderBrush="SeaGreen" Foreground="White" 
+            Style="{DynamicResource DefaultBtn}"
+            IsTabStop="False" Padding="0" Cursor="Hand" Width="35" Click="BackButtonN">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/left_50px GREEN.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="MinimazeButton" Content="" 
+            Margin="960,6,48,0" 
+            VerticalAlignment="Top" 
+            Height="30" 
+            RenderTransformOrigin="1.4,-1.04" 
+            BorderBrush="#FFA2CAFB" Foreground="White"
+            Style="{DynamicResource DefaultBtn}"
+            IsTabStop="False" Padding="0" 
+            Cursor="Hand" 
+            Width="30" Click="MinimazeButton_Click" MouseDown="minim">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/subtract_26px.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="BackButton1" Content="" 
+            Margin="842,175,160,0" 
+            VerticalAlignment="Top" 
+            Height="35" 
+            RenderTransformOrigin="1.4,-1.04" 
+            BorderBrush="SeaGreen" Foreground="White" 
+            Style="{DynamicResource DefaultBtn}"
+            IsTabStop="False" Padding="0" Cursor="Hand" Width="35" Click="BackButtonN1">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/left_50px GREEN.png"/>
+            </Button.Background>
+        </Button>
+        <Grid x:Name="panel4" HorizontalAlignment="Left" Height="308" Margin="508,258,0,0" VerticalAlignment="Top" Width="206">
+            <Image Source="Resources/2.-kabinet-oftalmologa.jpg" Height="156" VerticalAlignment="Top"/>
+            <TextBlock x:Name="plabel2" TextAlignment="Center"
+                FontFamily="Century Gothic"
+                FontSize="13" 
+                Margin="0,210,0,30"><Run Text="Исследование глазного "/><LineBreak/><Run Text="дна"/><Run Text=" по последн"/><Run Text="им трендам"/><LineBreak/><Run Text=" офтальмологии"/></TextBlock>
+            <Label x:Name="ценаLabel2_Copy" 
+                Content="руб" 
+                FontFamily="Century Gothic"
+                FontSize="14"
+                   FontWeight="Bold"
+                Grid.Column="0"
+                HorizontalAlignment="Left" 
+                Margin="170,283,0,-1" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Width="36"/>
+            <Grid x:Name="grid5" 
+                  DataContext="{StaticResource tableViewSource}"
+                  HorizontalAlignment="Left" 
+                  Margin="18,173,0,0" VerticalAlignment="Top" Height="36" Width="178">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth="37"/>
+                    <ColumnDefinition Width="Auto" MinWidth="141"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="услугиLabel2" 
+                       Content="{Binding Услуги}"
+                       HorizontalAlignment="Center" 
+                       Margin="29,-4,45,-3"
+                       FontFamily="Century Gothic"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center" Height="40" Width="120" Grid.ColumnSpan="2"/>
+            </Grid>
+            <Grid x:Name="grid4" HorizontalAlignment="Left" Margin="56,283,0,0" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="ценаLabel2"
+                       Content="{Binding Цена}" 
+                       Grid.Column="1" 
+                       FontFamily="Century Gothic"
+                       FontSize="15"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Left" 
+                       Margin="70,-2,-114,-12" 
+                       Grid.Row="0" 
+                       VerticalAlignment="Center" 
+                       Height="28" Width="58"/>
+            </Grid>
+        </Grid>
+        <Grid x:Name="panel5" 
+              HorizontalAlignment="Left" 
+              Height="308" Margin="782,258,0,0" 
+              VerticalAlignment="Top" 
+              Width="206">
+            <Image Source="Resources/3.-kabinet-oftalmologa.jpg" Height="156" VerticalAlignment="Top"/>
+            <TextBlock x:Name="plabel3" TextAlignment="Center"
+                FontFamily="Century Gothic"
+                FontSize="13" 
+                Margin="0,212,0,28"><Run Text="Базовая проверка зрения"/><LineBreak/><Run Text="с"/><Run Text=" помощью новейших"/><LineBreak/><Run Text=" технологий"/><LineBreak/><Run/></TextBlock>
+            <Label x:Name="ценаLabel3_Copy" 
+                Content="руб" 
+                FontFamily="Century Gothic"
+                FontSize="14"
+                   FontWeight="Bold"
+                Grid.Column="0"
+                HorizontalAlignment="Left" 
+                Margin="168,285,0,-3" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Width="38"/>
+            <Label x:Name="услугиLabel3" 
+                Content="{Binding Услуги}"
+                HorizontalAlignment="Center" 
+                Margin="28,161,22,107"
+                FontFamily="Century Gothic"
+                FontSize="16"
+                   FontWeight="Bold"
+                VerticalAlignment="Center"
+                   Height="40" Width="156"/>
+            <Label x:Name="ценаLabel3"
+                Content="{Binding Цена}" 
+                FontFamily="Century Gothic"
+                FontSize="15"
+                   FontWeight="Bold"
+                HorizontalAlignment="Left" 
+                Margin="132,284,0,-4" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Height="28" Width="58"/>
+        </Grid>
+        <Grid x:Name="panel9" HorizontalAlignment="Left" Height="308" Margin="618,258,0,0" VerticalAlignment="Top" Width="206" Background="White">
+            <Image Source="Resources/5-kabinet-oftalmologa.jpg" Height="156" VerticalAlignment="Top"/>
+            <TextBlock TextAlignment="Center"
+                FontFamily="Century Gothic"
+                FontSize="15" 
+                Margin="0,209,0,41"><Run Text="В гониоскопии"/><LineBreak/><Run Text="применяются гониолинзы"/></TextBlock>
+            <Label x:Name="ценаLabel5_Copy" 
+                Content="руб" 
+                FontFamily="Century Gothic"
+                FontSize="14"
+                   FontWeight="Bold"
+                Grid.Column="0"
+                HorizontalAlignment="Left" 
+                Margin="173,285,-2,-1" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Width="35"/>
+            <Label x:Name="услугиLabel5" 
+                Content="{Binding Услуги}"
+                HorizontalAlignment="Center" 
+                Margin="42,161,14,107"
+                FontFamily="Century Gothic"
+                FontSize="16"
+                   FontWeight="Bold"
+                VerticalAlignment="Center"
+                Height="40" Width="150"/>
+            <Label x:Name="ценаLabel5"
+                Content="{Binding Цена}" 
+                FontFamily="Century Gothic"
+                FontSize="15"
+                   FontWeight="Bold"
+                HorizontalAlignment="Left" 
+                Margin="134,284,0,-4" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Height="28" Width="58"/>
+        </Grid>
+        <Grid x:Name="panel12" HorizontalAlignment="Left" Height="308" Margin="782,258,0,0" VerticalAlignment="Top" Width="214" Background="White">
+            <Image Source="Resources/8-kabinet-oftalmologa.jpg"
+                Height="156" 
+                VerticalAlignment="Top"/>
+            <TextBlock TextAlignment="Center"
+                FontFamily="Century Gothic"
+                FontSize="15" 
+                Margin="0,210,0,56"><Run Text="Измерение угла"/><LineBreak/><Run Text="косоглазия по Гиршбергу"/></TextBlock>
+            <Label x:Name="ценаLabel8_Copy" 
+                Content="руб" 
+                FontFamily="Century Gothic"
+                FontSize="14"
+                   FontWeight="Bold"
+                Grid.Column="0"
+                HorizontalAlignment="Left" 
+                Margin="173,287,-2,-3" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Width="35"/>
+            <Label x:Name="услугиLabel8" 
+                Content="{Binding Услуги}"
+                HorizontalAlignment="Center" 
+                Margin="4,161,0,107"
+                FontFamily="Century Gothic"
+                FontSize="13"
+                   FontWeight="Bold"
+                VerticalAlignment="Center"
+                Height="40" Width="210"/>
+            <Label x:Name="ценаLabel8"
+                Content="{Binding Цена}" 
+                FontFamily="Century Gothic"
+                FontSize="15"
+                   FontWeight="Bold"
+                HorizontalAlignment="Left" 
+                Margin="142,285,0,-5" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Height="28" Width="58"/>
+        </Grid>
+        <DataGrid x:Name="tableDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="739,284,279,298" RowDetailsVisibilityMode="VisibleWhenSelected" Visibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" Width="SizeToHeader"/>
+                <DataGridTemplateColumn x:Name="услугиColumn" Header="Услуги" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Услуги}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="ценаColumn" Header="Цена" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Цена}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid x:Name="panel8" HorizontalAlignment="Left" Height="308" Margin="366,258,0,0" VerticalAlignment="Top" Width="206" Background="White">
+            <Image Source="Resources/4.-kabinet-oftalmologa.jpg" Height="156" VerticalAlignment="Top"/>
+            <TextBlock TextAlignment="Center"
+                FontFamily="Century Gothic"
+                FontSize="15" 
+                Margin="0,200,0,33"><Run Text="Просто знайте - Она"/><LineBreak/><Run Text="позволяет рассмотреть"/><LineBreak/><Run Text=" материю глаза детально"/><LineBreak/><Run Text=" под увеличением."/><LineBreak/></TextBlock>
+            <Label x:Name="ценаLabel4_Copy" 
+                Content="руб" 
+                FontFamily="Century Gothic"
+                FontSize="14"
+                   FontWeight="Bold"
+                Grid.Column="0"
+                HorizontalAlignment="Left" 
+                Margin="171,284,-2,0" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Width="37"/>
+            <Label x:Name="услугиLabel4" 
+                Content="{Binding Услуги}"
+                HorizontalAlignment="Center" 
+                Margin="30,156,16,112"
+                FontFamily="Century Gothic"
+                FontSize="16"
+                   FontWeight="Bold"
+                VerticalAlignment="Center"
+                Height="40" Width="160"/>
+            <Label x:Name="ценаLabel4"
+                Content="{Binding Цена}" 
+                FontFamily="Century Gothic"
+                FontSize="15"
+                   FontWeight="Bold"
+                HorizontalAlignment="Left" 
+                Margin="136,284,0,-4" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Height="28" Width="58"/>
+        </Grid>
+        <Grid x:Name="panel10" HorizontalAlignment="Left" Height="308" Margin="244,258,0,0" VerticalAlignment="Top" Width="224" Background="White">
+            <Image Source="Resources/6-kabinet-oftalmologa.jpg"
+                   Height="156" 
+                   VerticalAlignment="Top"/>
+            <TextBlock TextAlignment="Center"
+                FontFamily="Century Gothic"
+                FontSize="15" 
+                Margin="0,217,0,27"><Run Text="Просто капли в глаза и"/><LineBreak/><Run Text="ничего более"/><LineBreak/><Run Text="Почти"/></TextBlock>
+            <Label x:Name="ценаLabel6_Copy" 
+                Content="руб" 
+                FontFamily="Century Gothic"
+                FontSize="14"
+                   FontWeight="Bold"
+                Grid.Column="0"
+                HorizontalAlignment="Left" 
+                Margin="173,286,-2,-2" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Width="35"/>
+            <TextBlock x:Name="услугиLabel6" 
+                TextAlignment="Center"
+                FontFamily="Century Gothic"
+                FontSize="15" 
+                       FontWeight="Bold"
+                Margin="17,161,2,96" Foreground="#DD000000"><LineBreak/><LineBreak/></TextBlock>
+            <Label x:Name="ценаLabel6"
+                Content="{Binding Цена}" 
+                FontFamily="Century Gothic"
+                FontSize="15"
+                   FontWeight="Bold"
+                HorizontalAlignment="Left" 
+                Margin="141,285,0,-5" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Height="28" Width="58"/>
+        </Grid>
+        <Grid x:Name="panel11" HorizontalAlignment="Left" Height="308" Margin="508,258,0,0" VerticalAlignment="Top" Width="206" Background="White">
+            <Image Source="Resources/7-kabinet-oftalmologa.jpg"
+                Height="156" 
+                VerticalAlignment="Top"/>
+            <TextBlock TextAlignment="Center"
+                FontFamily="Century Gothic"
+                FontSize="15" 
+                Margin="0,199,0,30"><Run Text="Раздельно "/><Run Text="воспринимать"/><LineBreak/><Run Text=" две точки,"/><LineBreak/><Run Text="расположенные друг от"/><LineBreak/><Run Text="друга"/><Run Text=""/></TextBlock>
+            <Label x:Name="ценаLabel7_Copy" 
+                Content="руб" 
+                FontFamily="Century Gothic"
+                FontSize="14"
+                   FontWeight="Bold"
+                Grid.Column="0"
+                HorizontalAlignment="Left" 
+                Margin="172,287,-2,-3" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Width="36"/>
+            <Label x:Name="услугиLabel7" 
+                Content="{Binding Услуги}"
+                HorizontalAlignment="Center" 
+                Margin="8,161,12,107"
+                FontFamily="Century Gothic"
+                FontSize="15"
+                   FontWeight="Bold"
+                VerticalAlignment="Center"
+                Height="40" Width="186"/>
+            <Label x:Name="ценаLabel7"
+                Content="{Binding Цена}" 
+                FontFamily="Century Gothic"
+                FontSize="15"
+                   FontWeight="Bold"
+                HorizontalAlignment="Left" 
+                Margin="140,285,0,-5" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Height="28" Width="58"/>
+        </Grid>
+        <Grid x:Name="panel13" HorizontalAlignment="Left" Height="308" Margin="366,258,0,0" VerticalAlignment="Top" Width="219" Background="White">
+            <Image Source="Resources/9-kabinet-oftalmologa.jpg"
+                Height="156" 
+                VerticalAlignment="Top"/>
+            <TextBlock TextAlignment="Center"
+                FontFamily="Century Gothic"
+                FontSize="15" 
+                Margin="0,201,0,28"><Run Text="С"/><Run Text="пособность зрения"/><LineBreak/><Run Text="воспринимать и"/><LineBreak/><Run Text=" преобразовывать световое"/><LineBreak/><Run Text="излучение"/></TextBlock>
+            <Label x:Name="ценаLabel8_Copy1" 
+                Content="руб" 
+                FontFamily="Century Gothic"
+                FontSize="14"
+                   FontWeight="Bold"
+                Grid.Column="0"
+                HorizontalAlignment="Left" 
+                Margin="173,287,-2,-3" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Width="35"/>
+            <Label x:Name="услугиLabel9" 
+                Content="{Binding Услуги}"
+                HorizontalAlignment="Center" 
+                Margin="0,161,0,107"
+                FontFamily="Century Gothic"
+                FontSize="13"
+                   FontWeight="Bold"
+                VerticalAlignment="Center"
+                Height="40" Width="219"/>
+            <Label x:Name="ценаLabel9"
+                Content="{Binding Цена}" 
+                FontFamily="Century Gothic"
+                FontSize="15"
+                   FontWeight="Bold"
+                HorizontalAlignment="Left" 
+                Margin="142,285,0,-5" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Height="28" Width="58"/>
+        </Grid>
+        <Grid x:Name="panel14" HorizontalAlignment="Left" Height="308" Margin="649,258,0,0" VerticalAlignment="Top" Width="214" Background="White">
+            <Image Source="Resources/10-kabinet-oftalmologa.jpg"
+                Height="156" 
+                VerticalAlignment="Top"/>
+            <TextBlock TextAlignment="Center"
+                FontFamily="Century Gothic"
+                FontSize="15" 
+                Margin="0,210,0,56"><Run Text="Подберем очки "/><Run Text="В"/><Run Text="ам и"/><LineBreak/><Run Text="вашему ребенку"/></TextBlock>
+            <Label x:Name="ценаLabel8_Copy2" 
+                Content="руб" 
+                FontFamily="Century Gothic"
+                FontSize="14"
+                   FontWeight="Bold"
+                Grid.Column="0"
+                HorizontalAlignment="Left" 
+                Margin="173,287,-2,-3" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Width="35"/>
+            <Label x:Name="услугиLabel10" 
+                Content="{Binding Услуги}"
+                HorizontalAlignment="Center" 
+                Margin="14,161,2,107"
+                FontFamily="Century Gothic"
+                FontSize="15"
+                   FontWeight="Bold"
+                VerticalAlignment="Center"
+                Height="40" Width="198"/>
+            <Label x:Name="ценаLabel10"
+                Content="{Binding Цена}" 
+                FontFamily="Century Gothic"
+                FontSize="15"
+                   FontWeight="Bold"
+                HorizontalAlignment="Left" 
+                Margin="142,285,0,-5" 
+                Grid.Row="0" 
+                VerticalAlignment="Center" 
+                Height="28" Width="58"/>
+        </Grid>
+        <Grid x:Name="grid6" DataContext="{StaticResource personalViewSource}" HorizontalAlignment="Left" Margin="436,60,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="whoIsPersonaLabel1" 
+                   Content="{Binding WhoIsPersona}" 
+                   FontFamily="Calibri"
+                   FontSize="20"
+                   Grid.Column="1" 
+                   HorizontalAlignment="Left" 
+                   Margin="-153,-8,0,-6" 
+                   Grid.Row="0" 
+                   VerticalAlignment="Center" 
+                   Height="44" Width="110" Foreground="LightSkyBlue"/>
+        </Grid>
+        <Grid x:Name="grid7" DataContext="{StaticResource doctorViewSource}" HorizontalAlignment="Left" Margin="541,33,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="nameAccessLabel1" 
+                   Content="{Binding NameAccess}" 
+                   Grid.Column="1" 
+                   FontFamily="Calibri"
+                   FontSize="20"
+                   HorizontalAlignment="Left" 
+                   Margin="313,6,-395,-32" 
+                   Grid.Row="0" 
+                   VerticalAlignment="Center" 
+                   Height="40" Width="82" Foreground="SeaGreen"/>
+        </Grid>
+        <Grid x:Name="grid8" DataContext="{StaticResource glavDoctorViewSource}" HorizontalAlignment="Left" Margin="379,82,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="nameAccessLabel2" 
+                   Content="{Binding NameAccess}" 
+                   Grid.Column="1" 
+                   FontFamily="Calibri"
+                   FontSize="20"
+                   HorizontalAlignment="Left" 
+                   Margin="480,-41,-566,15" 
+                   Grid.Row="0" 
+                   VerticalAlignment="Center" 
+                   Height="40" Width="86" Foreground="SeaGreen"/>
+        </Grid>
+        <Grid x:Name="grid9" DataContext="{StaticResource tbl_LoginViewSource}" HorizontalAlignment="Left" Margin="465,36,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="usernameLabel1" 
+                   Grid.Column="1" 
+                   FontFamily="Century Gothic"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Left" 
+                   Margin="102,-34,-220,16" 
+                   Grid.Row="0"
+                   VerticalAlignment="Center" 
+                   Height="32" Width="118"/>
+        </Grid>
+        <Label x:Name="welcomeLabel_Copy" Content="Выполнен вход под:" 
+            Margin="402,2,447,558" 
+            FontFamily="Century Gothic" 
+            FontSize="16"/>
+        <local:KlinikaAbout x:Name="klinikaabout" HorizontalAlignment="Left" Height="456" Margin="209,140,0,0" VerticalAlignment="Top" Width="829" Background="White"/>
+    </Grid>
+</Window>
