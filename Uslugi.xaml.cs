@@ -51,36 +51,15 @@ namespace OftKlinika
             tableViewSource.View.MoveCurrentToFirst();
             //
             frmLogin fm = new frmLogin();
-            //usernameLabel1.Content = fm.txtUsername.Text;
-            //using (SqlConnection sqlCon = new SqlConnection(connectionString))
-            //{
-            //    sqlCon.Open();
-            //    string query = "SELECT * FROM tbl_Login WHERE Username='" + this.usernameLabel1.Content + "'";
-            //    SqlDataAdapter sda = new SqlDataAdapter(query, sqlCon);
-            //    DataTable dtbl = new DataTable();
-            //    sda.Fill(dtbl);
-            //    sqlCon.Close();
-            //}
-            //
+
             услугиLabel2.Content = oftKlinDataSet.Tables[0].Rows[1][1].ToString();
             услугиLabel3.Content = oftKlinDataSet.Tables[0].Rows[2][1].ToString();
             ценаLabel2.Content = oftKlinDataSet.Tables[0].Rows[1][2].ToString();
             ценаLabel3.Content = oftKlinDataSet.Tables[0].Rows[2][2].ToString();
             //
-            panel8.Visibility = Visibility.Hidden;
-            panel9.Visibility = Visibility.Hidden;
-            panel10.Visibility = Visibility.Hidden;
-            panel11.Visibility = Visibility.Hidden;
-            panel12.Visibility = Visibility.Hidden;
-            panel13.Visibility = Visibility.Hidden;
-            panel14.Visibility = Visibility.Hidden;
-            //
-            backuslugibutton.Visibility = Visibility.Hidden;
-            BackButton.Visibility = Visibility.Hidden;
-            BackButton1.Visibility = Visibility.Hidden;
-            //
-            NextButton1.Visibility = Visibility.Hidden;
-            NextButton2.Visibility = Visibility.Hidden;
+
+            SetVisibility(Visibility.Hidden, panel8, panel9, panel10, panel11, panel12, panel13, panel14, backuslugibutton, BackButton, BackButton1, NextButton1, NextButton2);
+
             OftKlinika.OftKlinDataSet4 oftKlinDataSet4 = ((OftKlinika.OftKlinDataSet4)(this.FindResource("oftKlinDataSet4")));
             // Загрузить данные в таблицу Personal. Можно изменить этот код как требуется.
             OftKlinika.OftKlinDataSet4TableAdapters.PersonalTableAdapter oftKlinDataSet4PersonalTableAdapter = new OftKlinika.OftKlinDataSet4TableAdapters.PersonalTableAdapter();
@@ -100,6 +79,9 @@ namespace OftKlinika
             glavDoctorViewSource.View.MoveCurrentToFirst();
         }
 
+
+
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             frmLogin fm = new frmLogin();
@@ -115,12 +97,16 @@ namespace OftKlinika
             //услугиLabel2.Content = rowView[2].ToString();
         }
 
+        private void SetVisibility(Visibility visibility, params UIElement[] elements)
+        {
+            foreach (UIElement element in elements)
+            {
+                element.Visibility = visibility;
+            }
+        }
+
         private void NextButton(object sender, RoutedEventArgs e)
         {
-            //Скрыть кнопки и элементы
-            backuslugibutton.Visibility = Visibility.Visible;
-            NextButton1.Visibility = Visibility.Visible;
-            NextButton2.Visibility = Visibility.Hidden;
             OftKlinika.OftKlinDataSet oftKlinDataSet = ((OftKlinika.OftKlinDataSet)(this.FindResource("oftKlinDataSet")));
             // Загрузить данные в таблицу Table. Можно изменить этот код как требуется.
             OftKlinika.OftKlinDataSetTableAdapters.TableTableAdapter oftKlinDataSetTableTableAdapter = new OftKlinika.OftKlinDataSetTableAdapters.TableTableAdapter();
@@ -130,25 +116,11 @@ namespace OftKlinika
             услугиLabel5.Content = oftKlinDataSet.Tables[0].Rows[4][1].ToString();
             ценаLabel4.Content = oftKlinDataSet.Tables[0].Rows[3][2].ToString();
             ценаLabel5.Content = oftKlinDataSet.Tables[0].Rows[4][2].ToString();
-            panel8.Visibility = Visibility.Visible;
-            panel9.Visibility = Visibility.Visible;
-            //
-            услугиLabel2.Visibility = Visibility.Hidden;
-            услугиLabel3.Visibility = Visibility.Hidden;
-            ценаLabel2.Visibility = Visibility.Hidden;
-            ценаLabel3.Visibility = Visibility.Hidden;
-            panel4.Visibility = Visibility.Hidden;
-            panel5.Visibility = Visibility.Hidden;
-            panel6.Visibility = Visibility.Hidden;
-            plabel1.Visibility = Visibility.Hidden;
-            plabel2.Visibility = Visibility.Hidden;
-            plabel3.Visibility = Visibility.Hidden;
-            //
-            //ВТОРАЯ ЧАСТЬ
-            //
-            panel10.Visibility = Visibility.Hidden;
-            panel11.Visibility = Visibility.Hidden;
-            panel12.Visibility = Visibility.Hidden;
+
+            SetVisibility(Visibility.Visible, panel8, panel9, backuslugibutton, NextButton1);
+            SetVisibility(Visibility.Hidden, NextButton2, услугиLabel2, услугиLabel3, ценаLabel2, ценаLabel3, panel4, panel5, panel6, plabel1, plabel2, plabel3, panel10, panel11, panel12);
+
+
         }
 
         private void NextButtonN2(object sender, RoutedEventArgs e)
@@ -157,26 +129,17 @@ namespace OftKlinika
             // Загрузить данные в таблицу Table. Можно изменить этот код как требуется.
             OftKlinika.OftKlinDataSetTableAdapters.TableTableAdapter oftKlinDataSetTableTableAdapter = new OftKlinika.OftKlinDataSetTableAdapters.TableTableAdapter();
             oftKlinDataSetTableTableAdapter.Fill(oftKlinDataSet.Table);
-            BackButton.Visibility = Visibility.Visible;
-            NextButton2.Visibility = Visibility.Visible;
-            backuslugibutton.Visibility = Visibility.Visible;
-            // HIDE
-            NextButtonN.Visibility = Visibility.Hidden;
-            panel4.Visibility = Visibility.Hidden;
-            panel5.Visibility = Visibility.Hidden;
-            panel6.Visibility = Visibility.Hidden;
-            panel8.Visibility = Visibility.Hidden;
-            panel9.Visibility = Visibility.Hidden;
-            // VISIBLE
+
+            SetVisibility(Visibility.Visible, BackButton, NextButton2, backuslugibutton, panel10, panel11, panel12);
+
+            SetVisibility(Visibility.Hidden, NextButtonN, panel4, panel5, panel6, panel8, panel9);
+
             услугиLabel6.Text = oftKlinDataSet.Tables[0].Rows[5][1].ToString();
             услугиLabel7.Content = oftKlinDataSet.Tables[0].Rows[6][1].ToString();
             услугиLabel8.Content = oftKlinDataSet.Tables[0].Rows[7][1].ToString();
             ценаLabel6.Content = oftKlinDataSet.Tables[0].Rows[5][2].ToString();
             ценаLabel7.Content = oftKlinDataSet.Tables[0].Rows[6][2].ToString();
             ценаLabel8.Content = oftKlinDataSet.Tables[0].Rows[7][2].ToString();
-            panel10.Visibility = Visibility.Visible;
-            panel11.Visibility = Visibility.Visible;
-            panel12.Visibility = Visibility.Visible;
         }
 
         private void NextButtonN3(object sender, RoutedEventArgs e)
@@ -189,24 +152,12 @@ namespace OftKlinika
             услугиLabel10.Content = oftKlinDataSet.Tables[0].Rows[9][1].ToString();
             ценаLabel9.Content = oftKlinDataSet.Tables[0].Rows[8][2].ToString();
             ценаLabel10.Content = oftKlinDataSet.Tables[0].Rows[9][2].ToString();
+
             // HIDE
-            NextButton1.Visibility = Visibility.Hidden;
-            NextButton2.Visibility = Visibility.Hidden;
-            NextButtonN.Visibility = Visibility.Hidden;
-            BackButton.Visibility = Visibility.Hidden;
-            panel4.Visibility = Visibility.Hidden;
-            panel5.Visibility = Visibility.Hidden;
-            panel6.Visibility = Visibility.Hidden;
-            panel8.Visibility = Visibility.Hidden;
-            panel9.Visibility = Visibility.Hidden;
-            panel10.Visibility = Visibility.Hidden;
-            panel11.Visibility = Visibility.Hidden;
-            panel12.Visibility = Visibility.Hidden;
+            SetVisibility(Visibility.Hidden, NextButton1, NextButton2, NextButtonN, BackButton, panel4, panel5, panel6, panel8, panel9, panel10, panel11, panel12);
+
             // VISIBLE
-            BackButton1.Visibility = Visibility.Visible;
-            backuslugibutton.Visibility = Visibility.Visible;
-            panel13.Visibility = Visibility.Visible;
-            panel14.Visibility = Visibility.Visible;
+            SetVisibility(Visibility.Visible, BackButton1, backuslugibutton, panel13, panel14);
         }
 
         private void BackButtonN(object sender, RoutedEventArgs e)
@@ -219,26 +170,11 @@ namespace OftKlinika
             услугиLabel5.Content = oftKlinDataSet.Tables[0].Rows[4][1].ToString();
             ценаLabel4.Content = oftKlinDataSet.Tables[0].Rows[3][2].ToString();
             ценаLabel5.Content = oftKlinDataSet.Tables[0].Rows[4][2].ToString();
-            BackButton.Visibility = Visibility.Hidden;
-            NextButtonN.Visibility = Visibility.Hidden;
-            NextButton1.Visibility = Visibility.Visible;
-            NextButton2.Visibility = Visibility.Hidden;
-            panel8.Visibility = Visibility.Visible;
-            panel9.Visibility = Visibility.Visible;
-            //
-            услугиLabel2.Visibility = Visibility.Hidden;
-            услугиLabel3.Visibility = Visibility.Hidden;
-            ценаLabel2.Visibility = Visibility.Hidden;
-            ценаLabel3.Visibility = Visibility.Hidden;
-            panel4.Visibility = Visibility.Hidden;
-            panel5.Visibility = Visibility.Hidden;
-            panel6.Visibility = Visibility.Hidden;
-            panel10.Visibility = Visibility.Hidden;
-            panel11.Visibility = Visibility.Hidden;
-            panel12.Visibility = Visibility.Hidden;
-            plabel1.Visibility = Visibility.Hidden;
-            plabel2.Visibility = Visibility.Hidden;
-            plabel3.Visibility = Visibility.Hidden;
+
+            SetVisibility(Visibility.Visible, NextButton1, panel8, panel9);
+
+            SetVisibility(Visibility.Hidden, BackButton, NextButtonN, NextButton2, услугиLabel2, услугиLabel3, ценаLabel2, ценаLabel3, panel4, panel5, panel6, panel10, panel11, panel12, plabel1, plabel2, plabel3);
+
         }
 
         private void BackButtonN1(object sender, RoutedEventArgs e)
@@ -254,18 +190,11 @@ namespace OftKlinika
             ценаLabel7.Content = oftKlinDataSet.Tables[0].Rows[6][2].ToString();
             ценаLabel8.Content = oftKlinDataSet.Tables[0].Rows[7][2].ToString();
             // HIDE
-            NextButton1.Visibility = Visibility.Hidden;
-            NextButtonN.Visibility = Visibility.Hidden;
-            BackButton1.Visibility = Visibility.Hidden;
-            panel13.Visibility = Visibility.Hidden;
-            panel14.Visibility = Visibility.Hidden;
+
+            SetVisibility(Visibility.Hidden, NextButton1, NextButtonN, BackButton1, panel13, panel14);
+
             // VISIBLE
-            NextButton2.Visibility = Visibility.Visible;
-            BackButton.Visibility = Visibility.Visible;
-            backuslugibutton.Visibility = Visibility.Visible;
-            panel10.Visibility = Visibility.Visible;
-            panel11.Visibility = Visibility.Visible;
-            panel12.Visibility = Visibility.Visible;
+            SetVisibility(Visibility.Visible, NextButton2, NextButton2, BackButton, backuslugibutton, panel10, panel11, panel12);
         }
 
         private void BackUslugi(object sender, RoutedEventArgs e)
@@ -281,30 +210,12 @@ namespace OftKlinika
             ценаLabel2.Content = oftKlinDataSet.Tables[0].Rows[1][2].ToString();
             ценаLabel3.Content = oftKlinDataSet.Tables[0].Rows[2][2].ToString();
             // VISIBLE
-            panel4.Visibility = Visibility.Visible;
-            panel5.Visibility = Visibility.Visible;
-            panel6.Visibility = Visibility.Visible;
-            NextButtonN.Visibility = Visibility.Visible;
-            услугиLabel2.Visibility = Visibility.Visible;
-            услугиLabel3.Visibility = Visibility.Visible;
-            ценаLabel2.Visibility = Visibility.Visible;
-            ценаLabel3.Visibility = Visibility.Visible;
-            plabel1.Visibility = Visibility.Visible;
-            plabel2.Visibility = Visibility.Visible;
-            plabel3.Visibility = Visibility.Visible;
+
+            SetVisibility(Visibility.Visible, panel4, panel5, panel6, NextButtonN, услугиLabel2, услугиLabel3, ценаLabel2, ценаLabel3, plabel1, plabel2, plabel3);
+
             // HIDE
-            backuslugibutton.Visibility = Visibility.Hidden;
-            BackButton.Visibility = Visibility.Hidden;
-            BackButton1.Visibility = Visibility.Hidden;
-            NextButton1.Visibility = Visibility.Hidden;
-            NextButton2.Visibility = Visibility.Hidden;
-            panel8.Visibility = Visibility.Hidden;
-            panel9.Visibility = Visibility.Hidden;
-            panel10.Visibility = Visibility.Hidden;
-            panel11.Visibility = Visibility.Hidden;
-            panel12.Visibility = Visibility.Hidden;
-            panel13.Visibility = Visibility.Hidden;
-            panel14.Visibility = Visibility.Hidden;
+            SetVisibility(Visibility.Hidden, NextButton2, NextButton2, BackButton, BackButton1, NextButton1, NextButton2, panel8, panel9, panel10, panel11, panel12, panel13, panel14);
+
         }
 
         private void MinimazeButton_Click(object sender, RoutedEventArgs e)
