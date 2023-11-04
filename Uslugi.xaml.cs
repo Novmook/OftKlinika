@@ -81,7 +81,6 @@ namespace OftKlinika
 
 
 
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             frmLogin fm = new frmLogin();
