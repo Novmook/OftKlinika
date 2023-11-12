@@ -35,6 +35,12 @@ namespace OftKlinika
         {
             idTextBox.Text = GenerateUniqueIdentifier();
 
+            dateTimePicker1.DisplayDateStart = DateTime.Now;
+            dateTimePicker1.DisplayDateStart = DateTime.Today.AddDays(1);
+            dateTimePicker1.DisplayDateEnd = DateTime.Today.AddDays(5);
+            dateTimePicker2.Text = DateTime.Now.ToString();
+
+
             OftKlinika.OftKlinDataSet oftKlinDataSet = ((OftKlinika.OftKlinDataSet)(this.FindResource("oftKlinDataSet")));
             // Загрузить данные в таблицу Table. Можно изменить этот код как требуется.
             OftKlinika.OftKlinDataSetTableAdapters.TableTableAdapter oftKlinDataSetTableTableAdapter = new OftKlinika.OftKlinDataSetTableAdapters.TableTableAdapter();
@@ -42,10 +48,7 @@ namespace OftKlinika
             System.Windows.Data.CollectionViewSource tableViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("tableViewSource")));
             tableViewSource.View.MoveCurrentToFirst();
             //
-            dateTimePicker1.DisplayDateStart = DateTime.Now;
-            dateTimePicker1.DisplayDateStart = DateTime.Today.AddDays(1);
-            dateTimePicker1.DisplayDateEnd = DateTime.Today.AddDays(6);
-            dateTimePicker2.Text = DateTime.Now.ToString();
+
             //
             OftKlinika.OftKlinDataSet1 oftKlinDataSet1 = ((OftKlinika.OftKlinDataSet1)(this.FindResource("oftKlinDataSet1")));
             // Загрузить данные в таблицу Uslugi. Можно изменить этот код как требуется.
@@ -96,28 +99,25 @@ namespace OftKlinika
             conn.Close();
         }
 
+        private int counter = 1;
 
         private string GenerateUniqueIdentifier()
         {
-            Random rand = new Random();
-            string uniqueId;
-            bool isUniqueIdGenerated = false;
+            string baseId = "OK-" + counter.ToString("D8");
 
-            // Генерируем уникальный идентификатор до тех пор, пока не найдем уникальный
-            do
+            // Проверяем, существует ли такой идентификатор в базе данных
+            if (IsIdExistsInDatabase(baseId))
             {
-                int randomNumber = rand.Next(10000000, 99999999); // Генерируем случайное 8-значное число
+                // Если существует, увеличиваем счетчик
+                counter++;
+                // Рекурсивно вызываем этот метод для генерации нового идентификатора
+                return GenerateUniqueIdentifier();
+            }
 
-                uniqueId = "OK-" + randomNumber.ToString();
+            // Увеличиваем счетчик для следующего идентификатора
+            counter++;
 
-                // Проверяем, существует ли такой идентификатор в базе данных
-                if (!IsIdExistsInDatabase(uniqueId))
-                {
-                    isUniqueIdGenerated = true;
-                }
-            } while (!isUniqueIdGenerated);
-
-            return uniqueId;
+            return baseId;
         }
 
         private Boolean IsIdExistsInDatabase(string id)
@@ -125,14 +125,14 @@ namespace OftKlinika
             SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\OftKlin.mdf;Integrated Security=True;Connect Timeout=30");
             {                                  
                 conn.Open();
-                string query = "SELECT * FROM Uslugi WHERE ID='" + idTextBox.Text.Trim() + "'";
+                string query = "SELECT * FROM Uslugi WHERE ID='" + id + "'";
                 SqlDataAdapter sda = new SqlDataAdapter(query, conn);
                 DataTable dtbl = new DataTable();
                 sda.Fill(dtbl);
 
                 if (dtbl.Rows.Count > 0)
                 {
-                    MessageBox.Show("Попробуйте еще раз.");
+                    //MessageBox.Show("Попробуйте еще раз.");
                     return true;
                 }
 
@@ -145,19 +145,7 @@ namespace OftKlinika
 
         private void TimePicker_TextChanged(object sender, TextChangedEventArgs e)
         {
-            dateTimePicker2.Format = Xceed.Wpf.Toolkit.DateTimeFormat.ShortTime;
-            if (dateTimePicker2.Value < DateTime.Now)
-            {
-                //MessageBox.Show("Нельзя указать время меньше вашего", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Warning);
-                dateTimePicker2.Format = Xceed.Wpf.Toolkit.DateTimeFormat.ShortTime;
-                //dateTimePicker2.Value = DateTime.Now;
-                //dateTimePicker2.Text = DateTime.Now.ToString();
-                dateTimePicker2.Text = "Выберите время";
-                //if (dateTimePicker1.DisplayDateStart > DateTime.Today.AddDays(1))
-                //{
-                //    dateTimePicker2.Text = null;
-                //}
-            }
+            
 
         }
 
@@ -171,7 +159,7 @@ namespace OftKlinika
         private void DataPicker_CalendarOpened(object sender, RoutedEventArgs e)
         {
             dateTimePicker1.DisplayDateStart = DateTime.Today.AddDays(1);
-            dateTimePicker1.DisplayDateEnd = DateTime.Now + TimeSpan.FromDays(5);
+            dateTimePicker1.DisplayDateEnd = DateTime.Now + TimeSpan.FromDays(7);
 
             var minDate = dateTimePicker1.DisplayDateStart ?? DateTime.MinValue;
             var maxDate = dateTimePicker1.DisplayDateEnd ?? DateTime.MaxValue;
@@ -187,9 +175,31 @@ namespace OftKlinika
 
         private void TimePickerValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            
+            DateTime selectedTime = dateTimePicker2.Value ?? DateTime.MinValue;
+
+            // Проверяем, находится ли выбранное время в разрешенном диапазоне
+            if (selectedTime.Hour >= 8 && selectedTime.Hour < 12)
+            {
+                // Время в разрешенном диапазоне
+            }
+            else if (selectedTime.Hour == 13 && selectedTime.Minute == 0)
+            {
+                // Время после 13:00
+            }
+            else
+            {
+                //MessageBox.Show("Выберите корректное время.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Сбрасываем выбранное время
+                dateTimePicker2.Value = null;
+            }
+        }
+
+        private void TimePicker_SelectedDateTimeChanged(object sender, RoutedPropertyChangedEventArgs<DateTime?> e)
+        {
             
         }
+
+
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
@@ -207,8 +217,8 @@ namespace OftKlinika
             System.Windows.Data.CollectionViewSource medicalCardViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("medicalCardViewSource")));
             medicalCardViewSource.View.MoveCurrentToFirst();
             //
-            if (isTimeExists())
-                return;
+            //if (isTimeExists())
+            //    return;
 
 
             if (idTextBox.Text == "" || услугиComboBox.Text == "" || dateTimePicker1.Text == "" || фамилияTextBox.Text == "" || имяTextBox.Text == "" || dateTimePicker2.Text == "" & dateTimePicker2.Text == "Выберите время" || специалистComboBox.Text == "")
@@ -217,7 +227,13 @@ namespace OftKlinika
             {
                 //
                 SqlConnection conn = new SqlConnection(connectionString);
+                if (isTimeExists())
+                {
+                    
+                    return;
+                }
                 conn.Open();
+                
                 //
                 oftKlinDataSet1UslugiTableAdapter.Insert(idTextBox.Text, услугиComboBox.Text, фамилияTextBox.Text, имяTextBox.Text, dateTimePicker1.Text, dateTimePicker2.Text, специалистComboBox.Text);
                 oftKlinDataSet1UslugiTableAdapter.Update(oftKlinDataSet1.Uslugi);
@@ -226,38 +242,43 @@ namespace OftKlinika
                 oftKlinDataSet5MedicalCardTableAdapter.Update(oftKlinDataSet5.MedicalCard);
                 oftKlinDataSet5.AcceptChanges();
                 MessageBox.Show($"Успешно! Ждем вас с нетерпением в ближайшее время.", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                //MessageBox.Show($"Успешно! Ждем вас с нетерпением в ближайшее время.\nВаш номер: {uniqueId}", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                //MessageBox.Show("Успешно! Ждем вас с нетерпением в ближайшее время.", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Warning);
                 Clear();
                 conn.Close();
             }
 
             void Clear()
             {
-                idTextBox.Text = услугиComboBox.Text = dateTimePicker1.Text = имяTextBox.Text = фамилияTextBox.Text = dateTimePicker2.Text = "";
+                услугиComboBox.Text = dateTimePicker1.Text = имяTextBox.Text = фамилияTextBox.Text = dateTimePicker2.Text = специалистComboBox.Text = "";
                 dateTimePicker1.Text = dateTimePicker2.Text = специалистComboBox.Text = null;
             }
         }
 
 
-        public Boolean isTimeExists()
+        public bool isTimeExists()
         {
-            SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\OftKlin.mdf;Integrated Security=True;Connect Timeout=30");
-            {                                   //(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Курсовая 0301\OftKlinika\OftKlin.mdf;Integrated Security=True;Connect Timeout=30");
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
                 conn.Open();
-                string query = "SELECT * FROM Uslugi WHERE Дата='" + dateTimePicker1.Text.Trim() + "'AND Время = '" + dateTimePicker2.Text.Trim() + "'";
-                SqlDataAdapter sda = new SqlDataAdapter(query, conn);
-                DataTable dtbl = new DataTable();
-                sda.Fill(dtbl);
+                string query = "SELECT COUNT(*) FROM Uslugi WHERE Дата=@Date AND Время=@Time AND Услуга=@Service";
 
-                if (dtbl.Rows.Count > 0)
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    MessageBox.Show("Запись на такое время уже существует, пожалуйста выберите другое время");
-                    return true;
-                }
+                    cmd.Parameters.AddWithValue("@Date", dateTimePicker1.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Time", dateTimePicker2.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Service", услугиComboBox.Text.Trim());
 
-                else
-                    return false;
+                    int count = (int)cmd.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Запись на такое время уже существует, пожалуйста, выберите другое время");
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
             }
         }
 

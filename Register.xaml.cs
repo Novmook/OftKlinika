@@ -105,14 +105,9 @@ namespace OftKlinika
                         System.Windows.MessageBox.Show("Аккаунт был создан", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                     else
                         System.Windows.MessageBox.Show("Аккаунт не был создан", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //Добавлено ниже 19.12.2022
                     
                     sqlCon.Close();
                     //
-                    //oftKlinDataSet2tbl_LoginTableAdapter.Insert(txtUser.Text, txtPass.Password, nameText.Text, famText.Text, AccessBox.Text);
-                    //oftKlinDataSet2tbl_LoginTableAdapter.Update(oftKlinDataSet2.tbl_Login);
-                    //oftKlinDataSet2.AcceptChanges();
-                    //System.Windows.MessageBox.Show("Аккаунт был создан", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                     Clear();
                     this.Hide();
                 }
